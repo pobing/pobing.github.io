@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>2014 todo!</title>
+        <title>运用git 裸仓库做代码部署</title>
         <meta name="viewport" content="width=device-width">
 
         <!-- syntax highlighting CSS -->
@@ -30,22 +30,50 @@
 
           </div>
 
-          <h2>2014 todo!</h2>
-<p class="meta">01 Jan 2014</p>
+          <h2>运用git 裸仓库做代码部署</h2>
+<p class="meta">16 Jan 2014</p>
 
 <div class="post">
-<ul>
-<li><p>考驾照: 驾驶技能是必备的技能之一，所以想在3月份左右报考驾校，完成这个技能的学习</p></li>
-<li><p>装修房子: 若6月份按期交房，大概7月份对房子做个简装修</p></li>
-<li><p>旅行 : 上半年青岛，下半年黑龙江</p></li>
-<li><p>回家探亲: 回广西媳妇家一次，回老家至少两次</p></li>
-<li><p>读书: 坚持每天都阅读的习惯，技术类或人文类</p></li>
-<li><p>写作: 根本不能叫写作，只是没合适的词，其实就是写点东西，多写东西，培养自己的思维</p></li>
-<li><p>英语学习: 坚持每天学扇贝英语，积累阅读词汇量</p></li>
-<li><p>身体健康: 坚持锻炼身体，从每天做俯卧撑开始，周末打篮球和羽毛球等</p></li>
-<li><p>工作: 工作好了才会有更多的money，所以工作要认真，要有责任心</p></li>
-<li><p>业余兴趣: 练习毛笔书法，练练琴，使生活更有趣</p></li>
-</ul>
+<p>capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
+假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：</p>
+
+<p>1.首先在S 机上创建裸仓库：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">cd /var/www/
+mkdir abc.git
+cd abc.git
+git init --bare
+</code></pre></div>
+<p>2.在本机L机上项目添加服务器的远程地址,确保用户可以远程通过ssh 协议登录</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">cd /path/to/abc
+git remote add online ssh://login_name@192.168.1.100/var/www/abc.git//ssh port: 22
+git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git//ssh port: 58404
+git push online master //把本地master 分支的代码提交到 远程的分支上
+</code></pre></div>
+<p>3.服务机S上从当前机上 clone abc 项目</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">cd /var/www/html/
+git clone var/www/abc.git 
+在裸藏库hooks 添加 钩子让从本地L 提交后代码自动更新
+cd /var/www/abc.git/hooks/
+cp post-update.sample post-update
+</code></pre></div>
+<p>4.编辑 post-update,添加钩子代码</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to &quot;post-update&quot;.
+
+cd /var/www/html/abc/ || exit
+unset GIT_DIR
+git pull
+
+echo &#39;unicorn restart&#39;
+# unicorn.abc restart
+
+exec git update-server-info
+</code></pre></div>
+<p>&lt;到此结束&gt;</p>
 
 </div>
 <!-- disqus comments -->
