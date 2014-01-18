@@ -13,10 +13,10 @@ h1 {
   color: #000;
 }
 
-a  {color: #03c}
+a  {color: #000}
 a:hover {
-  background-color: #66bc4e !important;
-  color: white;
+  /*background-color: #000 !important;*/
+  /*color: white;*/
   text-decoration: none;
 }
 
