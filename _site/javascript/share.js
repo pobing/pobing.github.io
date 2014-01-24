@@ -1,1 +1,0 @@
-<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=0bd5d0c2-23dc-45e3-9d1d-1ebffb059419&style=2&textcolor=#000000&bgcolor=none&bp=qqmb,sinaminiblog,qzone,weixin,facebook,twitter&text=分享">
