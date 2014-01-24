@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+                <title>Pobing's Blog</title>
+                <description>Pobing's life Share all.</description>
+                <link>http://pobing.info</link>
+                <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
+                
+                        <item>
+                                <title>《舌尖上的毒：酷农解密食品安全》的笔记-1</title>
+                                <description>&lt;p&gt;2014 年读的第一本书，还没读完，先摘抄书中部分精彩片段分享给大家。因为马上要过春节了，希望大家餐桌食品更安全。
+强烈推荐大家读这本书。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;激发我们对造成食品安全危机的多重因素进行思考。民以食为天，不安全食品的生产者也必会成为“舌尖上的毒”的受害者。希望本书能够起到增强大众的自我保护意识、唤醒企业的社会良心的作用。要让中国的饮食文化继续发扬光大，首先要还百姓一个安全健康的餐桌&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1.毒豆芽&lt;/p&gt;
+
+&lt;p&gt;试想，我们现在到底在多大程度上相互吃着对方不敢吃的东西？可是，谁又知道呢？&lt;/p&gt;
+
+&lt;p&gt;2.变色的不止是豆芽&lt;/p&gt;
+
+&lt;p&gt;当我们被市场上颜色可人、白如冬雪的食品吸引时，不知道有没有想过这些食品为什么会这么白？
+&lt;strong&gt;所以消费者应该尽量挑选原色食品，切忌购买颜色太白的食品。&lt;/strong&gt;
+如果下午去买豆芽，豆芽的颜色还是很白的话，很可能被漂白过了。
+消费者在购买食品的时候，应该尽量选一些原色自然的食品，使非法漂白失去市场，让原色食品回到餐桌。&lt;/p&gt;
+
+&lt;p&gt;3.消费者的误区&lt;/p&gt;
+
+&lt;p&gt;实际上，黑心食品屡禁不止，除了黑心商贩利欲熏心外，消费者本身也有责任
+年轻人爱买加工好的包装食品，不少人逛市场也喜欢挑‘好看的’。”
+除此之外，孙焕平还认为，消费者的漠然也在一定程度上造成了对“黑心食品”的纵容。
+是的，作为消费者，我们要坚决抵制“黑心食品”，使“黑心食品”犹如过街老鼠，人人喊打。&lt;/p&gt;
+
+&lt;p&gt;4.欺骗妻子&lt;/p&gt;
+
+&lt;p&gt;德国诗人海涅说过，生命不可能从谎言中绽放出灿烂的鲜花。&lt;/p&gt;
+
+&lt;p&gt;5.“黑心”粉丝&lt;/p&gt;
+
+&lt;p&gt;他希望老百姓一定要擦亮眼睛，不要一味图好看而买那种白而鲜亮的粉丝。&lt;/p&gt;
+
+&lt;p&gt;6.有机食品也造假&lt;/p&gt;
+
+&lt;p&gt;每个行业都会有不守规矩的人
+虽然社会各界对有机产业的前景一致看好，但目前频频被揭发的“假有机”也让行业开始遭受挑战。&lt;/p&gt;
+
+&lt;p&gt;7.假血燕&lt;/p&gt;
+
+&lt;p&gt;如果一个社会有钱人吃的、用的东西劣质有害，一般人吃的、用的东西同样劣质有害，那么到底谁在受益？谁得到了真正的安全保障？谁分享到了社会进步，谁又在令其倒退？这些问题，恐怕不是只消除畸形的燕窝消费能够回答的。&lt;/p&gt;
+
+&lt;p&gt;8.制假笔记&lt;/p&gt;
+
+&lt;p&gt;劳动创造财富”本来是我们的至理名言，如今却成了制假犯的座右铭。看来，无耻其实也不是一件很艰难的事。&lt;/p&gt;
+
+&lt;p&gt;9.广场爆发&lt;/p&gt;
+
+&lt;p&gt;对人类而言，只要保持足够的“含水量”的软淀粉——知识、谦虚、正直、善良等必备的技能与品德，在生活中磨炼出达到“爆裂”所必需的硬淀粉的条件——忍耐、勇敢、明辨、毅力等一定的相持能力，人也能像一粒爆裂的玉米那样灿烂绽放，实现自己的人生理想。&lt;/p&gt;
+
+&lt;p&gt;未完...&lt;/p&gt;
+</description>
+                                <pubDate>Sat, 18 Jan 2014 21:45:24 +0000</pubDate>
+                                <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>运用git 裸仓库做代码部署</title>
+                                <description>&lt;p&gt;capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
+假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：&lt;/p&gt;
+
+&lt;p&gt;1.首先在S 机上创建裸仓库：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /var/www/
+mkdir abc.git
+cd abc.git
+git init --bare
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;2.在本机L机上项目添加服务器的远程地址,确保用户可以远程通过ssh 协议登录&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /path/to/abc
+git remote add online ssh://login_name@192.168.1.100/var/www/abc.git//ssh port: 22
+git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git//ssh port: 58404
+git push online master //把本地master 分支的代码提交到 远程的分支上
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;3.服务机S上从当前机上 clone abc 项目&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /var/www/html/
+git clone var/www/abc.git 
+在裸藏库hooks 添加 钩子让从本地L 提交后代码自动更新
+cd /var/www/abc.git/hooks/
+cp post-update.sample post-update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;4.编辑 post-update,添加钩子代码&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to &amp;quot;post-update&amp;quot;.
+
+cd /var/www/html/abc/ || exit
+unset GIT_DIR
+git pull
+
+echo &amp;#39;unicorn restart&amp;#39;
+# unicorn.abc restart
+
+exec git update-server-info
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&amp;lt;到此结束&amp;gt;&lt;/p&gt;
+</description>
+                                <pubDate>Thu, 16 Jan 2014 11:03:24 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>2014 todo!</title>
+                                <description>&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;考驾照: 驾驶技能是必备的技能之一，所以想在3月份左右报考驾校，完成这个技能的学习&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;装修房子: 若6月份按期交房，大概7月份对房子做个简装修&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;旅行 : 上半年青岛，下半年黑龙江&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;回家探亲: 回广西媳妇家一次，回老家至少两次&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;读书: 坚持每天都阅读的习惯，技术类或人文类&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;写作: 根本不能叫写作，只是没合适的词，其实就是写点东西，多写东西，培养自己的思维&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;英语学习: 坚持每天学扇贝英语，积累阅读词汇量&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;身体健康: 坚持锻炼身体，从每天做俯卧撑开始，周末打篮球和羽毛球等&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;工作: 工作好了才会有更多的money，所以工作要认真，要有责任心&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;业余兴趣: 练习毛笔书法，练练琴，使生活更有趣&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                                <pubDate>Wed, 01 Jan 2014 12:28:35 +0000</pubDate>
+                                <link>http://pobing.info//my/posts/2014/01/01/2014-todo.html</link>
+                                <guid isPermaLink="true">http://pobing.info//my/posts/2014/01/01/2014-todo.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>2013这一年</title>
+                                <description>&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;1月
+&lt;img src=&quot;https://app.yinxiang.com/shard/s10/res/69d7f2a1-b78d-4a95-990a-410d50651abf/IMG_20130129_085813?resizeSmall&amp;amp;width=737&quot; alt=&quot;guangxi meijing&quot; title=&quot;guangxi meijing&quot;&gt;
+第一次去广西，也是第一次去老婆家，见到了纯朴善良的岳父岳母！按照当地风俗办了简单的婚礼酒席。广西的景色很美！&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;2月&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;和姣第一次在北京过年，并没有那么孤单，玩得很开心。
+&lt;img src=&quot;http://farm8.staticflickr.com/7408/8792567749_31c511ca91_z.jpg&quot; alt=&quot;2013 chunjie&quot; title=&quot;2013 chunjie&quot;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;离开住了两年的天通苑，终于从地下室住到了楼上，重见天日，很是开心！离开了谢阿姨，一直记得她的好！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm9.staticflickr.com/8234/8524374194_08110d3f27_z.jpg&quot; alt=&quot;tiantongyuan&quot; title=&quot;tiantongyuan&quot;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;4月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我，姣和老于一家去北京郊区摘草莓&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://app.yinxiang.com/shard/s10/res/ebe094fd-01b8-4964-8461-a8a000bfdcb2/IMG_20130405_150904?resizeSmall&amp;amp;width=400&quot; alt=&quot;zhaicaomei&quot; title=&quot;zhaicaomei&quot;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;5月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;做了每个新婚之人结婚前做的事，拍婚纱照，婚纱照拍的很好看，至少在我眼中。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;6月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;端午节小长假和姣去了北戴河，第一次见到了大海，感受到了大海的浩瀚和美丽。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://app.yinxiang.com/shard/s10/res/399eed37-3bd7-4714-ad22-44d1506ee692/IMG_20130612_055647?resizeSmall&amp;amp;width=737&quot; alt=&quot;bo sea&quot; title=&quot;bohai&quot;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;7月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;离开了工作长达27个月的公司，更多舍不得的是好几个同事。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7318/8907215262_21442be4c9_z.jpg%22&quot; alt=&quot;fengheng&quot; title=&quot;fangheng&quot;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;8月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;完成了终生大事，和亲爱的姣在老家举行婚礼，天气虽炎热，但见到好多亲戚，还有朋友，岳父也来家呆了好几天，玩得很开心。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm3.staticflickr.com/2869/10168652766_808a65eaf1_z.jpg&quot; alt=&quot;hongba&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;婚礼之后带家人，去西安游玩，看到了著名的大雁塔，去了回民街吃小吃。只可惜时间太短，带家人没玩够。&lt;/p&gt;
+
+&lt;p&gt;月底入职现在的公司。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;9月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;买了我们的第一辆自行车，这以后就可以很嘚瑟带我们家姣去任何附近的地方了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;10月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;国庆长假，完成人生又一重大事件，在父母的资助下，在西安买了房子。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7440/10168576895_4536cec8cf_z.jpg&quot; alt=&quot;qiu&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;同时在国庆假期，和宿舍的兄弟工作后首次聚餐，大家变的更帅了，发展都很不错。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;11月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm4.staticflickr.com/3752/11010763485_b20584113f_z.jpg&quot; alt=&quot;shaokao&quot; title=&quot;shaokao&quot;&gt;
+现公司转正成功，并外出烧烤，吃的很开心。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;12月&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm4.staticflickr.com/3742/11682408645_951e88bb00_z.jpg&quot; alt=&quot;ski&quot; title=&quot;first ski&quot;&gt;
+经历了一个没有下雪的冬天，在公司的年底团建活动中，第一次滑雪，玩得很开心，不过摔的很惨。&lt;/p&gt;
+
+&lt;p&gt;2013年将离我们远去，今年确实感觉到了时间过的很快，不过今年过得还是很充实，期待2014会更好！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://app.yinxiang.com/shard/s10/res/3cbb236d-a1d8-4b29-b5cd-68f694490b1a/1387947429720745?resizeSmall&amp;amp;width=737&quot; alt=&quot;hope&quot;&gt;&lt;/p&gt;
+</description>
+                                <pubDate>Wed, 01 Jan 2014 12:14:35 +0000</pubDate>
+                                <link>http://pobing.info//my/posts/2014/01/01/2013-%E6%80%BB%E7%BB%93.html</link>
+                                <guid isPermaLink="true">http://pobing.info//my/posts/2014/01/01/2013-%E6%80%BB%E7%BB%93.html</guid>
+                        </item>
+                
+        </channel>
+</rss>
