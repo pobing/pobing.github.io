@@ -1,10 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
         <channel>
-                <title>Pobing's Blog</title>
-                <description>Pobing's life Share all.</description>
+                <title>Pobing&#39;s Blog</title>
+                <description>Pobing&#39;s life Share all.</description>
                 <link>http://pobing.info</link>
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
+                
+                        <item>
+                                <title>记一次 redmine 升级</title>
+                                <description>&lt;p&gt;公司想迁移 redmine 服务器，并要对redmine 进行升级 ，旧版本是 1.x 的,ruby 是 1.8x 。 版本很老，升级得谨慎。查看了redmine 的官网 &lt;a href=&quot;http://www.redmine.org/&quot;&gt;http://www.redmine.org/&lt;/a&gt;, 最新版本已是 2.4x 的，参考了&lt;a href=&quot;http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade&quot;&gt;redmine 的升级指南&lt;/a&gt;, 这次升级需要注意以下几点：
+&lt;pre&gt;
+数据的备份：确保数据完整
+文件的备份：之前上传的附件全都备份
+版本的兼容：新版和旧版 redmine 有数据表的字段的不统一，确保其兼容&lt;br&gt;
+&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;升级步骤： &lt;/p&gt;
+
+&lt;p&gt;说明： 下文用 A 代表旧服务器， B 代表新服务器，省略 B 机器安装 ruby 和 rails 环境的步骤&lt;/p&gt;
+
+&lt;p&gt;1.从 A 机器导出 redmine 旧数据（停掉当前redmine 服务，确保数据统一），并拷贝到 B 机器&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;mysqldump -u redmine -p redmine_default &amp;gt; redmine_bak.sql ＃ 导出数据
+scp -P 58212 redmine_bak.sql b@host:/Backup/ ＃ 拷贝到 B 机器
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;2.官网&lt;a href=&quot;http://www.redmine.org/projects/redmine/wiki/Download&quot;&gt;下载&lt;/a&gt;最新redmine 程序并解压 &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;wget http://www.redmine.org/releases/redmine-2.4.3.tar.gz
+tar zxf redmine-2.4.3.tar.gz
+mv redmine-2.4.3 redmine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;3.从 A 机器 redmine 程序拷贝旧配置文件，附件，插件到新程序 config 目录下 &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;#拷贝配置文件
+scp －P 58212 a@host:/var/www/redmine/config/database.yml  config/  
+#If you&amp;#39;re running Redmine &amp;gt;= 1.4 with mysql and ruby1.9, change the database adapter to `mysql2`.
+scp －P 58212 a@host:/var/www/redmine/config/configuration.yml  config/
+scp －P 58212 a@host:/var/www/redmine/config/setting.yml  config/  # email config info
+
+#拷贝附件
+scp －P -r 58212 a@host:/var/www/redmine/files/  files/  
+
+#拷贝 plugins
+scp －P 58212 a@host:/var/www/redmine/vendor/plugins/  plugins/  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;4.生成 secret_token.rb&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;rake generate_secret_token 
+#This will generate a file (config/initializers/secret_token.rb) with a random secret used to secure session data.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;5.创建数据库，倒入旧数据，执行迁移，顺序不能乱，否则会出现字段不兼容现象&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;RAILS_ENV=production rake db:create ＃ mysql will create redmine db
+
+#导入旧数据
+mysql  -u username -p password --default_character_set utf8 redmine &amp;lt; Backup/redmine_bak.sql 
+
+#执行迁移
+RAILS_ENV=production rake db:migrate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;6.安装 imagemagic&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;yum install ImageMagick-devel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;7.Bundle、Start and Test&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;bundle install --without development test
+rails s -e production
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;参考：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade&quot;&gt;http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://dl528888.blog.51cto.com/2382721/1228105&quot;&gt;http://dl528888.blog.51cto.com/2382721/1228105&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.raymondchen.com/?p=543&quot;&gt;http://www.raymondchen.com/?p=543&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[完]&lt;/p&gt;
+</description>
+                                <pubDate>Sat, 15 Feb 2014 16:23:00 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/02/15/redmine-%E5%8D%87%E7%BA%A7.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/02/15/redmine-%E5%8D%87%E7%BA%A7.html</guid>
+                        </item>
                 
                         <item>
                                 <title>《舌尖上的毒：酷农解密食品安全》的笔记2-人造鸡蛋</title>
@@ -147,7 +217,7 @@ echo &amp;#39;unicorn restart&amp;#39;
 
 exec git update-server-info
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&amp;lt;到此结束&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;到此结束&gt;&lt;/p&gt;
 </description>
                                 <pubDate>Thu, 16 Jan 2014 11:03:24 +0000</pubDate>
                                 <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</link>
