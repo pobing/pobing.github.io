@@ -130,8 +130,9 @@ a:hover   { color: #000; }
 /* standard */
 .post pre {
   border: 1px solid #ddd;
-  background-color: #eef;
+  background-color: #eee;
   padding: 0 .4em;
+  overflow: auto;
 }
 
 .post ul, .post ol {
@@ -140,7 +141,7 @@ a:hover   { color: #000; }
 
 .post code {
   border: 1px solid #ddd;
-  background-color: #eef;
+  background-color: #eee;
   padding: 0 .2em;
 }
 
