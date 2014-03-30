@@ -7,6 +7,171 @@
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
                 
                         <item>
+                                <title>Linux 新服务配置</title>
+                                <description>&lt;p&gt;linux 版本 ubuntu12.04 x86&lt;/p&gt;
+
+&lt;p&gt;首次登录：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;ssh root@x.x.x.x
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;修改root用户密码：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;创建新用户组（admin组）：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;addgroup admin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;添加新用户：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;useradd -d /home/bill -s /bin/bash -m bill
+
+＃参数d指定用户的主目录，参数s指定用户的shell，参数m表示如果该目录不存在，则创建该目录
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;设置新用户的密码&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;passwd bill
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;将新用户（bill）添加到用户组（admin）&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;usermod -a -G admin bill
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;为新用户设定权限&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;visudo #visudo命令会打开sudo设置文件/etc/sudoers
+
+root    ALL=(ALL:ALL) ALL
+bill    ALL=(ALL:ALL) ALL  #为bill 用户设定 sudo 权限
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;修改默认服务器 ssh 端口，1025 － 65536 之间的任意整数,我们设置端口 58404&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo cp /etc/ssh/sshd_config ~  # 备份 sshd_config 文件
+sudo vi /etc/ssh/sshd_config
+
+
+Port 58404
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;禁止root 用户登录&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;Protocol 2
+
+PermitRootLogin no
+PermitEmptyPasswords no
+PasswordAuthentication no
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+UseDNS no
+
+
+sudo  passwd -l root # 禁用 root 账号
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;指定允许登录的用户：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;AllowUsers bill
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;改变authorized_keys文件的权限&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo chmod 600 ~/.ssh/authorized_keys &amp;amp;&amp;amp; chmod 700 ~/.ssh/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;重启SSHD&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo service ssh restart
+
+# 或者
+
+sudo /etc/init.d/ssh restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ruby install&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install curl
+
+curl -L get.rvm.io | bash -s stablesource ~/.rvm/scripts/rvm
+
+rvm requirements
+
+rvm install 2.0
+rvm use 2.0
+ruby -v
+rvm --default use 2.0
+gem install rails -v 3.2.16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;apache,mysql,phpmyadmin&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+mysql_config —socket # config sock
+sudo apt-get install apache2
+sudo apt-get install phpmyadmin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;git&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git-core
+ssh-keygen -t rsa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;nginx&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;other&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install nodejs
+sudo apt-get install imagemagick
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Mysql create user and Grant Permissions&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;user mysql;
+create user &amp;#39;rabel&amp;#39;@&amp;#39;localhost&amp;#39; identified by &amp;#39;password&amp;#39;;
+GRANT ALL PRIVILEGES ON db_name. * TO &amp;#39;name&amp;#39;@&amp;#39;localhost&amp;#39;;
+FLUSH PRIVILEGES;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ssh 别名登录&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;在本机~/.ssh文件夹下创建config文件，内容如下。
+
+Host s1
+HostName 128.199.209.242
+User bill
+Port 25000
+
+ssh s1 # 新开shell,测试是否可以登录
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;参考：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2014/03/server_setup.html&quot;&gt;Linux服务器的初步配置流程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://spenserj.com/blog/2013/07/15/securing-a-linux-server/&quot;&gt;securing-a-linux-server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;推荐：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://pobing.info/%E6%8A%80%E6%9C%AF/2014/03/30/ssh-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95.html&quot;&gt;ssh 免密码登录&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://pobing.info/%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html&quot;&gt;使用 git 裸仓库部署项目&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                                <pubDate>Sun, 30 Mar 2014 22:18:11 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/Linux-%E6%96%B0%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/Linux-%E6%96%B0%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>ssh 免密码登录远程机器</title>
+                                <description>&lt;p&gt;假设 A为本地主机(即用于控制其他主机的机器), B为远程主机(即被控制的机器Server), ip为192.168.10.105; 前提是两台机器都是Linux系统
+这里不做 ssh 的 id_rsa.pub 的生成&lt;/p&gt;
+
+&lt;p&gt;将本地 ~/.ssh/id_rsa.pub 拷贝到要登录的机器B机器，执行以下命令：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo scp /home/a/.ssh/id_rsa.pub b@192.168.10.105:/home/b/.ssh/a_id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;B机把从A机复制的id&lt;em&gt;rsa.pub添加到.ssh/authorzied&lt;/em&gt;keys文件里&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;touch /root/.ssh/authorized_keys (如果已经存在这个文件, 跳过这条)
+cat ~/.ssh/jdd_id_rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
+
+# 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 &amp;gt; ，否则会清空原有的内容，使其他人无法使用原有的密钥登录
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;修改 authorized_keys 文件权限：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;chmod 600 ~/.ssh/authorized_keys
+
+
+ # 必须将~/.ssh/authorized_keys的权限改为600, 该文件用于保存ssh客户端生成的公钥，可以修改服务器的ssh服务端配置文件/etc/ssh/sshd_config来指定其他文件名
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;测试：A机器执行&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;ssh b@192.168.10.105
+scp something b@192.168.10.105:/home/b/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;以上都不需要输入密码能成功操作，说明配置OK！&lt;/p&gt;
+
+&lt;p&gt;参考：&lt;a href=&quot;http://my.oschina.net/aiguozhe/blog/33994&quot;&gt;http://my.oschina.net/aiguozhe/blog/33994&lt;/a&gt;&lt;/p&gt;
+</description>
+                                <pubDate>Sun, 30 Mar 2014 22:13:55 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/ssh-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/ssh-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>《舌尖上的毒：酷农解密食品安全》的笔记3-食品添加剂和酱缸文化</title>
                                 <description>&lt;ol&gt;
 &lt;li&gt;添加剂－不必谈‘添’色变
