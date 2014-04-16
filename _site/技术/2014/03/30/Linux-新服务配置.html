@@ -95,7 +95,7 @@ sudo  passwd -l root # 禁用 root 账号
 <p>重启SSHD</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">sudo service ssh restart
 
-# 或者
+//或者
 
 sudo /etc/init.d/ssh restart
 </code></pre></div>
@@ -126,15 +126,43 @@ ssh-keygen -t rsa
 <p>nginx</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install nginx
 </code></pre></div>
-<p>other</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install nodejs
-sudo apt-get install imagemagick
+<p>memcached</p>
+
+<ul>
+<li>安装</li>
+</ul>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install memcached
+</code></pre></div>
+<ul>
+<li>启动服务</li>
+</ul>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">memcached -d -m 50 -p 11011 -u memcache -l 127.0.0.1
+
+常用memcache启动参数介绍:
+
+-d：以daemon的方式在后台启动运行一个守护进程
+-m：分配给Memcache使用的最大内存数量，单位是MB，默认是64MB
+-u：设定运行Memcache的用户（memcache默认不允许以root用户登录）
+-l：监听的服务器IP地址
+-p：设置Memcache监听的TCP端口，默认是11211(p为小写)
+-c：设置最大并发连接数，默认是1024
+-P：设置保存Memcache的pid文件路径(P为大写)
+-h：显示帮助
+</code></pre></div>
+<ul>
+<li>关闭服务</li>
+</ul>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">kill -9 memcache的进程ID
 </code></pre></div>
 <p>Mysql create user and Grant Permissions</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">user mysql;
 create user &#39;rabel&#39;@&#39;localhost&#39; identified by &#39;password&#39;;
 GRANT ALL PRIVILEGES ON db_name. * TO &#39;name&#39;@&#39;localhost&#39;;
 FLUSH PRIVILEGES;
+</code></pre></div>
+<p>其他辅助软件</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install nodejs
+sudo apt-get install imagemagick
 </code></pre></div>
 <p>ssh 别名登录</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">在本机~/.ssh文件夹下创建config文件，内容如下。
@@ -146,11 +174,19 @@ Port 25000
 
 ssh s1 # 新开shell,测试是否可以登录
 </code></pre></div>
+<p>安装终极Shell zsh</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install zsh
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+
+chsh -s /bin/zsh #zsh作为默认shell
+</code></pre></div>
 <p>参考：</p>
 
 <ul>
 <li><a href="http://www.ruanyifeng.com/blog/2014/03/server_setup.html">Linux服务器的初步配置流程</a></li>
 <li><a href="http://spenserj.com/blog/2013/07/15/securing-a-linux-server/">securing-a-linux-server</a></li>
+<li><a href="http://dhq.me/ubuntu-install-use-memcache">Ubuntu 12.04 LTS下memcache的安装使用</a></li>
 </ul>
 
 <p>推荐：</p>

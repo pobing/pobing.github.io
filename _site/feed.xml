@@ -115,7 +115,7 @@ sudo  passwd -l root # 禁用 root 账号
 &lt;p&gt;重启SSHD&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo service ssh restart
 
-# 或者
+//或者
 
 sudo /etc/init.d/ssh restart
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -146,15 +146,43 @@ ssh-keygen -t rsa
 &lt;p&gt;nginx&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install nginx
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;other&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install nodejs
-sudo apt-get install imagemagick
+&lt;p&gt;memcached&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;安装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install memcached
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;启动服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;memcached -d -m 50 -p 11011 -u memcache -l 127.0.0.1
+
+常用memcache启动参数介绍:
+
+-d：以daemon的方式在后台启动运行一个守护进程
+-m：分配给Memcache使用的最大内存数量，单位是MB，默认是64MB
+-u：设定运行Memcache的用户（memcache默认不允许以root用户登录）
+-l：监听的服务器IP地址
+-p：设置Memcache监听的TCP端口，默认是11211(p为小写)
+-c：设置最大并发连接数，默认是1024
+-P：设置保存Memcache的pid文件路径(P为大写)
+-h：显示帮助
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;关闭服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;kill -9 memcache的进程ID
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Mysql create user and Grant Permissions&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;user mysql;
 create user &amp;#39;rabel&amp;#39;@&amp;#39;localhost&amp;#39; identified by &amp;#39;password&amp;#39;;
 GRANT ALL PRIVILEGES ON db_name. * TO &amp;#39;name&amp;#39;@&amp;#39;localhost&amp;#39;;
 FLUSH PRIVILEGES;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其他辅助软件&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install nodejs
+sudo apt-get install imagemagick
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;ssh 别名登录&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;在本机~/.ssh文件夹下创建config文件，内容如下。
@@ -166,11 +194,19 @@ Port 25000
 
 ssh s1 # 新开shell,测试是否可以登录
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;安装终极Shell zsh&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install zsh
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+
+chsh -s /bin/zsh #zsh作为默认shell
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;参考：&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2014/03/server_setup.html&quot;&gt;Linux服务器的初步配置流程&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://spenserj.com/blog/2013/07/15/securing-a-linux-server/&quot;&gt;securing-a-linux-server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://dhq.me/ubuntu-install-use-memcache&quot;&gt;Ubuntu 12.04 LTS下memcache的安装使用&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;推荐：&lt;/p&gt;

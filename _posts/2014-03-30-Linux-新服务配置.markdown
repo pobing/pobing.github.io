@@ -116,7 +116,7 @@ sudo chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh/
 ```
 sudo service ssh restart
 
-# 或者
+//或者
 
 sudo /etc/init.d/ssh restart
 ```
@@ -167,13 +167,38 @@ sudo apt-get install nginx
 
 ```
 
-other
+memcached
+
+* 安装
 
 ```
-sudo apt-get install nodejs
-sudo apt-get install imagemagick
+sudo apt-get install memcached
 
 ```
+* 启动服务
+
+```
+memcached -d -m 50 -p 11011 -u memcache -l 127.0.0.1
+
+常用memcache启动参数介绍:
+
+-d：以daemon的方式在后台启动运行一个守护进程
+-m：分配给Memcache使用的最大内存数量，单位是MB，默认是64MB
+-u：设定运行Memcache的用户（memcache默认不允许以root用户登录）
+-l：监听的服务器IP地址
+-p：设置Memcache监听的TCP端口，默认是11211(p为小写)
+-c：设置最大并发连接数，默认是1024
+-P：设置保存Memcache的pid文件路径(P为大写)
+-h：显示帮助
+
+```
+* 关闭服务
+
+```
+kill -9 memcache的进程ID
+
+```
+
 
 Mysql create user and Grant Permissions
 
@@ -182,6 +207,15 @@ user mysql;
 create user 'rabel'@'localhost' identified by 'password';
 GRANT ALL PRIVILEGES ON db_name. * TO 'name'@'localhost';
 FLUSH PRIVILEGES;
+
+```
+
+
+其他辅助软件
+
+```
+sudo apt-get install nodejs
+sudo apt-get install imagemagick
 
 ```
 
@@ -199,10 +233,23 @@ ssh s1 # 新开shell,测试是否可以登录
 
 ```
 
+安装终极Shell zsh
+
+```
+
+sudo apt-get install zsh
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+
+chsh -s /bin/zsh #zsh作为默认shell
+
+```
+
 参考：
 
 * [Linux服务器的初步配置流程](http://www.ruanyifeng.com/blog/2014/03/server_setup.html)
 * [securing-a-linux-server](http://spenserj.com/blog/2013/07/15/securing-a-linux-server/)
+* [Ubuntu 12.04 LTS下memcache的安装使用](http://dhq.me/ubuntu-install-use-memcache)
 
 推荐：
 
