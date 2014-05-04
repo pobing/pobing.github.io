@@ -1,0 +1,259 @@
+---
+layout: post
+title:  "Linux 新服务配置"
+date:   2014-03-30 22:18:11
+
+categories: 技术
+---
+
+linux 版本 ubuntu12.04 x86
+
+首次登录：
+
+```
+ssh root@x.x.x.x
+
+```
+
+修改root用户密码：
+
+```
+
+passwd
+
+```
+
+创建新用户组（admin组）：
+
+```
+
+addgroup admin
+
+```
+
+添加新用户：
+
+```
+useradd -d /home/bill -s /bin/bash -m bill
+
+＃参数d指定用户的主目录，参数s指定用户的shell，参数m表示如果该目录不存在，则创建该目录
+
+```
+
+设置新用户的密码
+
+```
+
+passwd bill
+
+```
+将新用户（bill）添加到用户组（admin）
+
+```
+
+usermod -a -G admin bill
+
+```
+为新用户设定权限
+
+```
+visudo #visudo命令会打开sudo设置文件/etc/sudoers
+
+root    ALL=(ALL:ALL) ALL
+bill    ALL=(ALL:ALL) ALL  #为bill 用户设定 sudo 权限
+
+```
+修改默认服务器 ssh 端口，1025 － 65536 之间的任意整数,我们设置端口 58404
+
+```
+sudo cp /etc/ssh/sshd_config ~  # 备份 sshd_config 文件
+sudo vi /etc/ssh/sshd_config
+
+
+Port 58404
+
+```
+
+禁止root 用户登录
+
+```
+
+Protocol 2
+
+PermitRootLogin no
+PermitEmptyPasswords no
+PasswordAuthentication no
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+UseDNS no
+
+
+sudo  passwd -l root # 禁用 root 账号
+
+
+```
+
+指定允许登录的用户：
+
+```
+AllowUsers bill
+
+```
+
+改变authorized_keys文件的权限
+
+```
+
+sudo chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh/
+
+```
+
+重启SSHD
+
+```
+sudo service ssh restart
+
+//或者
+
+sudo /etc/init.d/ssh restart
+```
+
+
+
+
+ruby install
+
+```
+sudo apt-get install curl
+
+curl -L get.rvm.io | bash -s stablesource ~/.rvm/scripts/rvm
+
+rvm requirements
+
+rvm install 2.0
+rvm use 2.0
+ruby -v
+rvm --default use 2.0
+gem install rails -v 3.2.16
+
+```
+
+apache,mysql,phpmyadmin
+
+```
+sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+mysql_config —socket # config sock
+sudo apt-get install apache2
+sudo apt-get install phpmyadmin
+
+```
+
+git
+
+```
+git-core
+ssh-keygen -t rsa
+
+```
+
+nginx
+
+```
+sudo apt-get install nginx
+
+```
+
+memcached
+
+* 安装
+
+```
+sudo apt-get install memcached
+
+```
+* 启动服务
+
+```
+memcached -d -m 50 -p 11011 -u memcache -l 127.0.0.1
+
+常用memcache启动参数介绍:
+
+-d：以daemon的方式在后台启动运行一个守护进程
+-m：分配给Memcache使用的最大内存数量，单位是MB，默认是64MB
+-u：设定运行Memcache的用户（memcache默认不允许以root用户登录）
+-l：监听的服务器IP地址
+-p：设置Memcache监听的TCP端口，默认是11211(p为小写)
+-c：设置最大并发连接数，默认是1024
+-P：设置保存Memcache的pid文件路径(P为大写)
+-h：显示帮助
+
+```
+* 关闭服务
+
+```
+kill -9 memcache的进程ID
+
+```
+
+
+Mysql create user and Grant Permissions
+
+```
+user mysql;
+create user 'rabel'@'localhost' identified by 'password';
+GRANT ALL PRIVILEGES ON db_name. * TO 'name'@'localhost';
+FLUSH PRIVILEGES;
+
+```
+
+
+其他辅助软件
+
+```
+sudo apt-get install nodejs
+sudo apt-get install imagemagick
+
+```
+
+ssh 别名登录
+
+```
+在本机~/.ssh文件夹下创建config文件，内容如下。
+
+Host s1
+HostName 128.199.209.242
+User bill
+Port 25000
+
+ssh s1 # 新开shell,测试是否可以登录
+
+```
+
+安装终极Shell zsh
+
+```
+
+sudo apt-get install zsh
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+
+chsh -s /bin/zsh #zsh作为默认shell
+
+```
+
+参考：
+
+* [Linux服务器的初步配置流程](http://www.ruanyifeng.com/blog/2014/03/server_setup.html)
+* [securing-a-linux-server](http://spenserj.com/blog/2013/07/15/securing-a-linux-server/)
+* [Ubuntu 12.04 LTS下memcache的安装使用](http://dhq.me/ubuntu-install-use-memcache)
+
+推荐：
+
+* [ssh 免密码登录](http://pobing.info/技术/2014/03/30/ssh-免密码登录.html)
+* [使用 git 裸仓库部署项目](http://pobing.info/%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html)
+
+

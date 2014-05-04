@@ -1,0 +1,88 @@
+---
+layout: post
+title:  "记一次 redmine 升级"
+date:   2014-02-15 16:23:00
+categories: 技术
+---
+
+公司想迁移 redmine 服务器，并要对redmine 进行升级 ，旧版本是 1.x 的,ruby 是 1.8x 。 版本很老，升级得谨慎。查看了redmine 的官网 [http://www.redmine.org/](http://www.redmine.org/), 最新版本已是 2.4x 的，参考了[redmine 的升级指南](http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade), 这次升级需要注意以下几点：
+<pre>
+数据的备份：确保数据完整
+文件的备份：之前上传的附件全都备份
+版本的兼容：新版和旧版 redmine 有数据表的字段的不统一，确保其兼容  
+</pre>
+
+升级步骤： 
+
+说明： 下文用 A 代表旧服务器， B 代表新服务器，省略 B 机器安装 ruby 和 rails 环境的步骤
+
+
+1.从 A 机器导出 redmine 旧数据（停掉当前redmine 服务，确保数据统一），并拷贝到 B 机器
+
+```
+mysqldump -u redmine -p redmine_default > redmine_bak.sql ＃ 导出数据
+scp -P 58212 redmine_bak.sql b@host:/Backup/ ＃ 拷贝到 B 机器
+```
+2.官网[下载](http://www.redmine.org/projects/redmine/wiki/Download)最新redmine 程序并解压 
+
+```
+wget http://www.redmine.org/releases/redmine-2.4.3.tar.gz
+tar zxf redmine-2.4.3.tar.gz
+mv redmine-2.4.3 redmine
+```
+
+3.从 A 机器 redmine 程序拷贝旧配置文件，附件，插件到新程序 config 目录下 
+
+```
+#拷贝配置文件
+scp －P 58212 a@host:/var/www/redmine/config/database.yml  config/  
+#If you're running Redmine >= 1.4 with mysql and ruby1.9, change the database adapter to `mysql2`.
+scp －P 58212 a@host:/var/www/redmine/config/configuration.yml  config/
+scp －P 58212 a@host:/var/www/redmine/config/setting.yml  config/  # email config info
+
+#拷贝附件
+scp －P -r 58212 a@host:/var/www/redmine/files/  files/  
+
+#拷贝 plugins
+scp －P 58212 a@host:/var/www/redmine/vendor/plugins/  plugins/  
+
+```
+4.生成 secret_token.rb
+
+```
+rake generate_secret_token 
+#This will generate a file (config/initializers/secret_token.rb) with a random secret used to secure session data.
+
+```
+5.创建数据库，倒入旧数据，执行迁移，顺序不能乱，否则会出现字段不兼容现象
+
+```
+RAILS_ENV=production rake db:create ＃ mysql will create redmine db
+
+#导入旧数据
+mysql  -u username -p password --default_character_set utf8 redmine < Backup/redmine_bak.sql 
+
+#执行迁移
+RAILS_ENV=production rake db:migrate
+
+```
+6.安装 imagemagic
+
+```
+yum install ImageMagick-devel
+```
+
+7.Bundle、Start and Test
+
+```
+bundle install --without development test
+rails s -e production
+```
+
+参考：
+
+* [http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade](http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade)
+* [http://dl528888.blog.51cto.com/2382721/1228105](http://dl528888.blog.51cto.com/2382721/1228105)
+* [http://www.raymondchen.com/?p=543](http://www.raymondchen.com/?p=543)
+
+[完]

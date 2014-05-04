@@ -1,0 +1,55 @@
+---
+layout: post
+title:  "运用git 裸仓库做代码部署"
+date:   2014-01-16 11:03:24
+categories: 技术
+---
+capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
+假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：
+
+1.首先在S 机上创建裸仓库：
+
+```
+cd /var/www/
+mkdir abc.git
+cd abc.git
+git init --bare
+```
+2.在本机L机上项目添加服务器的远程地址,确保用户可以远程通过ssh 协议登录
+
+```
+cd /path/to/abc
+git remote add online ssh://login_name@192.168.1.100/var/www/abc.git//ssh port: 22
+git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git//ssh port: 58404
+git push online master //把本地master 分支的代码提交到 远程的分支上
+```
+3.服务机S上从当前机上 clone abc 项目
+
+```
+cd /var/www/html/
+git clone var/www/abc.git 
+在裸藏库hooks 添加 钩子让从本地L 提交后代码自动更新
+cd /var/www/abc.git/hooks/
+cp post-update.sample post-update
+```
+4.编辑 post-update,添加钩子代码
+
+```
+#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to "post-update".
+
+cd /var/www/html/abc/ || exit
+unset GIT_DIR
+git pull
+
+echo 'unicorn restart'
+# unicorn.abc restart
+
+exec git update-server-info
+```
+
+<到此结束>
