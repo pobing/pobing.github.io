@@ -7,6 +7,39 @@
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
                 
                         <item>
+                                <title>养成备份的习惯</title>
+                                <description>&lt;p&gt;plugins&lt;/p&gt;
+</description>
+                                <pubDate>Sat, 03 May 2014 05:24:42 +0000</pubDate>
+                                <link>http://pobing.info//%E6%96%87%E7%AB%A0/2014/05/03/yang-cheng-bei-fen-de-xi-guan.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%96%87%E7%AB%A0/2014/05/03/yang-cheng-bei-fen-de-xi-guan.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>Redis 在短信验证码中的运用</title>
+                                <description>&lt;p&gt;很多时候都想不到用 &lt;a href=&quot;http://redis.io&quot;&gt;redis&lt;/a&gt;，这次项目中要做给用户发送手机验证码的功能。
+一般发送手机验证码也就是以下步骤：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;1.用户获取手机验证码
+2.服务器生成验证码（一般是 4-6 位数字），调用第三方发短信接口
+3.用户收到验证码的短信后，输入验证码提交
+4.服务器验证验证码合法性
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;下面详细说说以上步骤注意事项：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;步骤1：发短信是调用第三方接口，是要花钱的。用户请求一次发短信接口，1 毛钱就出去了。所以不能让用户一直请求，要对步骤 1 进行请求限制。限制条件假如是： 1次/分钟, 3次/小时
+步骤2：服务器生成的验证码要和当前用户关联
+步骤3：因为发短信会有时间的延迟，用户好久收不到短信怎么办，多长时间可以重新请求发短信
+步骤4：验证码多长时间有效，假如10分钟内有效
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;先说传统的解决办法，假如数据库是 Mysql 要实现上述的需求可以实现，因为要对用户的请求次数进行计数，还要判断验证码的有效期，难点就在此，想想就麻烦。
+而且验证码是临时性的，其实不需要存储的。
+&amp;lt;!-- 创建一个保存验证码的数据表假如叫：codes，codes 表和用户表 users 关联，用户请求发短信的接口，服务端先判断当前时间和该用户的上一次code 记录创建时间只差，如果小于1 ，说明在一分钟内，返回稍后操作的提示，如果大于1，说明在1分钟之外，则codes 表新增一记录，然后发短信， --&amp;gt;&lt;/p&gt;
+</description>
+                                <pubDate>Sun, 20 Apr 2014 10:06:00 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/04/20/Redis-%E5%9C%A8%E7%9F%AD%E4%BF%A1%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/04/20/Redis-%E5%9C%A8%E7%9F%AD%E4%BF%A1%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>8个月5次搬家的心路历程（一）</title>
                                 <description>&lt;p&gt;&lt;strong&gt;北漂不易，坚持不易，且行且珍惜。&lt;/strong&gt;&lt;/p&gt;
 
@@ -605,74 +638,6 @@ rails s -e production
                                 <pubDate>Sat, 18 Jan 2014 21:45:24 +0000</pubDate>
                                 <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</link>
                                 <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>运用git 裸仓库做代码部署</title>
-                                <description>&lt;p&gt;capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
-假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：&lt;/p&gt;
-
-&lt;p&gt;1.首先在S 机上创建裸仓库：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /var/www/
-mkdir abc.git
-cd abc.git
-git init --bare
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;2.在本机L机上项目添加服务器的远程地址,确保用户可以远程通过ssh 协议登录&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /path/to/abc
-git remote add online ssh://login_name@192.168.1.100/var/www/abc.git//ssh port: 22
-git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git//ssh port: 58404
-git push online master //把本地master 分支的代码提交到 远程的分支上
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;3.服务机S上从当前机上 clone abc 项目&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /var/www/html/
-git clone var/www/abc.git 
-在裸藏库hooks 添加 钩子让从本地L 提交后代码自动更新
-cd /var/www/abc.git/hooks/
-cp post-update.sample post-update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;4.编辑 post-update,添加钩子代码&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
-#
-# An example hook script to prepare a packed repository for use over
-# dumb transports.
-#
-# To enable this hook, rename this file to &amp;quot;post-update&amp;quot;.
-
-cd /var/www/html/abc/ || exit
-unset GIT_DIR
-git pull
-
-echo &amp;#39;unicorn restart&amp;#39;
-# unicorn.abc restart
-
-exec git update-server-info
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;到此结束&gt;&lt;/p&gt;
-</description>
-                                <pubDate>Thu, 16 Jan 2014 11:03:24 +0000</pubDate>
-                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>2014 todo!</title>
-                                <description>&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;考驾照: 驾驶技能是必备的技能之一，所以想在3月份左右报考驾校，完成这个技能的学习&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;装修房子: 若6月份按期交房，大概7月份对房子做个简装修&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;旅行 : 上半年青岛，下半年黑龙江&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;回家探亲: 回广西媳妇家一次，回老家至少两次&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;读书: 坚持每天都阅读的习惯，技术类或人文类&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;写作: 根本不能叫写作，只是没合适的词，其实就是写点东西，多写东西，培养自己的思维&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;英语学习: 坚持每天学扇贝英语，积累阅读词汇量&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;身体健康: 坚持锻炼身体，从每天做俯卧撑开始，周末打篮球和羽毛球等&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;工作: 工作好了才会有更多的money，所以工作要认真，要有责任心&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;业余兴趣: 练习毛笔书法，练练琴，使生活更有趣&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-                                <pubDate>Wed, 01 Jan 2014 12:28:35 +0000</pubDate>
-                                <link>http://pobing.info//my/posts/2014/01/01/2014-todo.html</link>
-                                <guid isPermaLink="true">http://pobing.info//my/posts/2014/01/01/2014-todo.html</guid>
                         </item>
                 
         </channel>

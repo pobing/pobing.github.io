@@ -3,7 +3,11 @@ layout: default
 comments: true
 ---
 <h2>{{ page.title }}</h2>
-<p class="meta">{{ page.date | date_to_string }} </p>
+<p>{{ page.date | date_to_string }} |
+{% if page.tags.size > 0 %}
+
+<small>Tags: {% for tag in page.tags %} <a href="/tags/{{ tag }}" title="View posts tagged with &quot;{{ tag }}&quot;"><u>{{ tag }}</u></a>  {% if forloop.last != true %} {% endif %} {% endfor %} </small>{% endif %}
+</p>
 
 <div class="post">
 {{ content }}
@@ -36,7 +40,7 @@ var duoshuoQuery = {short_name:"pobing"};
 		ds.type = 'text/javascript';ds.async = true;
 		ds.src = 'http://static.duoshuo.com/embed.js';
 		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
+		(document.getElementsByTagName('head')[0]
 		|| document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
 	</script>
