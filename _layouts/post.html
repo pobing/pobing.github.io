@@ -3,10 +3,11 @@ layout: default
 comments: true
 ---
 <h2>{{ page.title }}</h2>
-<p>{{ page.date | date_to_string }} |
+<p class="meta">{{ page.date | date_to_string }}
+<!--   |
 {% if page.tags.size > 0 %}
 
-<small>Tags: {% for tag in page.tags %} <a href="/tags/{{ tag }}" title="View posts tagged with &quot;{{ tag }}&quot;"><u>{{ tag }}</u></a>  {% if forloop.last != true %} {% endif %} {% endfor %} </small>{% endif %}
+<small>Tags: {% for tag in page.tags %} <a href="/tags/{{ tag }}" title="View posts tagged with &quot;{{ tag }}&quot;"><u>{{ tag }}</u></a>  {% if forloop.last != true %} {% endif %} {% endfor %} </small>{% endif %} -->
 </p>
 
 <div class="post">

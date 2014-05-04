@@ -7,6 +7,30 @@
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
                 
                         <item>
+                                <title>Redis 在短信验证码中的运用</title>
+                                <description>&lt;p&gt;很多时候都想不到用 &lt;a href=&quot;http://redis.io&quot;&gt;redis&lt;/a&gt;，这次项目中要做给用户发送手机验证码的功能。
+一般发送手机验证码也就是以下步骤：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;1.用户获取手机验证码
+2.服务器生成验证码（一般是 4-6 位数字），调用第三方发短信接口
+3.用户收到验证码的短信后，输入验证码提交
+4.服务器验证验证码合法性
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;下面详细说说以上步骤注意事项：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;步骤1：发短信是调用第三方接口，是要花钱的。用户请求一次发短信接口，1 毛钱就出去了。所以不能让用户一直请求，要对步骤 1 进行请求限制。限制条件假如是： 1次/分钟, 3次/小时
+步骤2：服务器生成的验证码要和当前用户关联
+步骤3：因为发短信会有时间的延迟，用户好久收不到短信怎么办，多长时间可以重新请求发短信
+步骤4：验证码多长时间有效，假如10分钟内有效
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;先说传统的解决办法，假如数据库是 Mysql 要实现上述的需求可以实现，因为要对用户的请求次数进行计数，还要判断验证码的有效期，难点就在此，想想就麻烦。
+而且验证码是临时性的，其实不需要存储的。
+&amp;lt;!-- 创建一个保存验证码的数据表假如叫：codes，codes 表和用户表 users 关联，用户请求发短信的接口，服务端先判断当前时间和该用户的上一次code 记录创建时间只差，如果小于1 ，说明在一分钟内，返回稍后操作的提示，如果大于1，说明在1分钟之外，则codes 表新增一记录，然后发短信， --&amp;gt;&lt;/p&gt;
+</description>
+                                <pubDate>Sun, 04 May 2014 08:40:55 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/05/04/redis-zai-duan-xin-yan-zheng-ma-zhong-de-yun-yong.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/05/04/redis-zai-duan-xin-yan-zheng-ma-zhong-de-yun-yong.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>养成备份的习惯</title>
                                 <description>&lt;p&gt;plugins&lt;/p&gt;
 </description>
@@ -581,63 +605,6 @@ rails s -e production
                                 <pubDate>Thu, 23 Jan 2014 21:51:24 +0000</pubDate>
                                 <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/23/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-2.html</link>
                                 <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/23/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-2.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>《舌尖上的毒：酷农解密食品安全》的笔记-1</title>
-                                <description>&lt;p&gt;2014 年读的第一本书，还没读完，先摘抄书中部分精彩片段分享给大家。因为马上要过春节了，希望大家餐桌食品更安全。
-强烈推荐大家读这本书。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;激发我们对造成食品安全危机的多重因素进行思考。民以食为天，不安全食品的生产者也必会成为“舌尖上的毒”的受害者。希望本书能够起到增强大众的自我保护意识、唤醒企业的社会良心的作用。要让中国的饮食文化继续发扬光大，首先要还百姓一个安全健康的餐桌&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;1.毒豆芽&lt;/p&gt;
-
-&lt;p&gt;试想，我们现在到底在多大程度上相互吃着对方不敢吃的东西？可是，谁又知道呢？&lt;/p&gt;
-
-&lt;p&gt;2.变色的不止是豆芽&lt;/p&gt;
-
-&lt;p&gt;当我们被市场上颜色可人、白如冬雪的食品吸引时，不知道有没有想过这些食品为什么会这么白？
-&lt;strong&gt;所以消费者应该尽量挑选原色食品，切忌购买颜色太白的食品。&lt;/strong&gt;
-如果下午去买豆芽，豆芽的颜色还是很白的话，很可能被漂白过了。
-消费者在购买食品的时候，应该尽量选一些原色自然的食品，使非法漂白失去市场，让原色食品回到餐桌。&lt;/p&gt;
-
-&lt;p&gt;3.消费者的误区&lt;/p&gt;
-
-&lt;p&gt;实际上，黑心食品屡禁不止，除了黑心商贩利欲熏心外，消费者本身也有责任
-年轻人爱买加工好的包装食品，不少人逛市场也喜欢挑‘好看的’。”
-除此之外，孙焕平还认为，消费者的漠然也在一定程度上造成了对“黑心食品”的纵容。
-是的，作为消费者，我们要坚决抵制“黑心食品”，使“黑心食品”犹如过街老鼠，人人喊打。&lt;/p&gt;
-
-&lt;p&gt;4.欺骗妻子&lt;/p&gt;
-
-&lt;p&gt;德国诗人海涅说过，生命不可能从谎言中绽放出灿烂的鲜花。&lt;/p&gt;
-
-&lt;p&gt;5.“黑心”粉丝&lt;/p&gt;
-
-&lt;p&gt;他希望老百姓一定要擦亮眼睛，不要一味图好看而买那种白而鲜亮的粉丝。&lt;/p&gt;
-
-&lt;p&gt;6.有机食品也造假&lt;/p&gt;
-
-&lt;p&gt;每个行业都会有不守规矩的人
-虽然社会各界对有机产业的前景一致看好，但目前频频被揭发的“假有机”也让行业开始遭受挑战。&lt;/p&gt;
-
-&lt;p&gt;7.假血燕&lt;/p&gt;
-
-&lt;p&gt;如果一个社会有钱人吃的、用的东西劣质有害，一般人吃的、用的东西同样劣质有害，那么到底谁在受益？谁得到了真正的安全保障？谁分享到了社会进步，谁又在令其倒退？这些问题，恐怕不是只消除畸形的燕窝消费能够回答的。&lt;/p&gt;
-
-&lt;p&gt;8.制假笔记&lt;/p&gt;
-
-&lt;p&gt;劳动创造财富”本来是我们的至理名言，如今却成了制假犯的座右铭。看来，无耻其实也不是一件很艰难的事。&lt;/p&gt;
-
-&lt;p&gt;9.广场爆发&lt;/p&gt;
-
-&lt;p&gt;对人类而言，只要保持足够的“含水量”的软淀粉——知识、谦虚、正直、善良等必备的技能与品德，在生活中磨炼出达到“爆裂”所必需的硬淀粉的条件——忍耐、勇敢、明辨、毅力等一定的相持能力，人也能像一粒爆裂的玉米那样灿烂绽放，实现自己的人生理想。&lt;/p&gt;
-
-&lt;p&gt;未完...&lt;/p&gt;
-</description>
-                                <pubDate>Sat, 18 Jan 2014 21:45:24 +0000</pubDate>
-                                <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</guid>
                         </item>
                 
         </channel>
