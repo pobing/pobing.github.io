@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>记一次 redmine 升级</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/layout.css">
+
+        <!-- google cse -->
+        <script type="text/javascript" src="/javascript/google.cse.js"></script>
+
+    </head>
+    <body>
+
+        <div class="site">
+
+          <div class="header">
+            <h1 class="title"><a href="/">Pobing's Blog</a></h1>
+            <a class="extra" href="/">首页</a>
+            <a class="extra" href="/page/read.html">阅读</a>
+            <a class="extra" href="/feed.xml">Rss</a>
+
+           <gcse:search></gcse:search>
+
+
+          </div>
+
+          <h2>记一次 redmine 升级</h2>
+<p>15 Feb 2014 |
+
+</p>
+
+<div class="post">
+<p>公司想迁移 redmine 服务器，并要对redmine 进行升级 ，旧版本是 1.x 的,ruby 是 1.8x 。 版本很老，升级得谨慎。查看了redmine 的官网 <a href="http://www.redmine.org/">http://www.redmine.org/</a>, 最新版本已是 2.4x 的，参考了<a href="http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade">redmine 的升级指南</a>, 这次升级需要注意以下几点：
+<pre>
+数据的备份：确保数据完整
+文件的备份：之前上传的附件全都备份
+版本的兼容：新版和旧版 redmine 有数据表的字段的不统一，确保其兼容<br>
+</pre></p>
+
+<p>升级步骤： </p>
+
+<p>说明： 下文用 A 代表旧服务器， B 代表新服务器，省略 B 机器安装 ruby 和 rails 环境的步骤</p>
+
+<p>1.从 A 机器导出 redmine 旧数据（停掉当前redmine 服务，确保数据统一），并拷贝到 B 机器</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">mysqldump -u redmine -p redmine_default &gt; redmine_bak.sql ＃ 导出数据
+scp -P 58212 redmine_bak.sql b@host:/Backup/ ＃ 拷贝到 B 机器
+</code></pre></div>
+<p>2.官网<a href="http://www.redmine.org/projects/redmine/wiki/Download">下载</a>最新redmine 程序并解压 </p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">wget http://www.redmine.org/releases/redmine-2.4.3.tar.gz
+tar zxf redmine-2.4.3.tar.gz
+mv redmine-2.4.3 redmine
+</code></pre></div>
+<p>3.从 A 机器 redmine 程序拷贝旧配置文件，附件，插件到新程序 config 目录下 </p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">#拷贝配置文件
+scp －P 58212 a@host:/var/www/redmine/config/database.yml  config/  
+#If you&#39;re running Redmine &gt;= 1.4 with mysql and ruby1.9, change the database adapter to `mysql2`.
+scp －P 58212 a@host:/var/www/redmine/config/configuration.yml  config/
+scp －P 58212 a@host:/var/www/redmine/config/setting.yml  config/  # email config info
+
+#拷贝附件
+scp －P -r 58212 a@host:/var/www/redmine/files/  files/  
+
+#拷贝 plugins
+scp －P 58212 a@host:/var/www/redmine/vendor/plugins/  plugins/  
+</code></pre></div>
+<p>4.生成 secret_token.rb</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">rake generate_secret_token 
+#This will generate a file (config/initializers/secret_token.rb) with a random secret used to secure session data.
+</code></pre></div>
+<p>5.创建数据库，倒入旧数据，执行迁移，顺序不能乱，否则会出现字段不兼容现象</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">RAILS_ENV=production rake db:create ＃ mysql will create redmine db
+
+#导入旧数据
+mysql  -u username -p password --default_character_set utf8 redmine &lt; Backup/redmine_bak.sql 
+
+#执行迁移
+RAILS_ENV=production rake db:migrate
+</code></pre></div>
+<p>6.安装 imagemagic</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">yum install ImageMagick-devel
+</code></pre></div>
+<p>7.Bundle、Start and Test</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">bundle install --without development test
+rails s -e production
+</code></pre></div>
+<p>参考：</p>
+
+<ul>
+<li><a href="http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade">http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1228105">http://dl528888.blog.51cto.com/2382721/1228105</a></li>
+<li><a href="http://www.raymondchen.com/?p=543">http://www.raymondchen.com/?p=543</a></li>
+</ul>
+
+<p>[完]</p>
+
+</div>
+<p>
+<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=0bd5d0c2-23dc-45e3-9d1d-1ebffb059419&style=2&textcolor=#000000&bgcolor=none&bp=qqmb,sinaminiblog,qzone,weixin,facebook,twitter&text=分享"></script>
+</p>
+<!-- disqus comments -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'pobingsblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- disques comments end -->
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"pobing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+
+          <div class="footer">
+              <p>
+                <a href="https://github.com/pobing">Git hub</a>
+                <a href="https://github.com/pobing">Twitter</a>
+                <a href="mailto:cn.jdong@gmail.com">Contact</a>
+              </p>
+          </div>
+        </div>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-47369732-1', 'pobing.info');
+          ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>
