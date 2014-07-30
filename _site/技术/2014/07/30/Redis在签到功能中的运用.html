@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>养成备份的习惯</title>
+        <title>Redis 在签到功能中的运用</title>
         <meta name="viewport" content="width=device-width">
 
         <!-- syntax highlighting CSS -->
@@ -32,16 +32,49 @@
 
           </div>
 
-          <h2>养成备份的习惯</h2>
-<p class="meta">03 May 2014
+          <h2>Redis 在签到功能中的运用</h2>
+<p class="meta">30 Jul 2014
 <!--   |
-
-
-<small>Tags:  <a href="/tags/xiguan" title="View posts tagged with &quot;xiguan&quot;"><u>xiguan</u></a>    </small> -->
+ -->
 </p>
 
 <div class="post">
-<p>plugins</p>
+<p>前段时间项目做了一个每日签到功能，现在有时间记下当时实现这个需求的思路和技术实现。
+这个功能总共做了两版，分别是从两种不同的业务需求实现：</p>
+
+<ol>
+<li>第一种：每日签到，获取固定积分；</li>
+<li>第二种：类似《节奏大师》游戏那样的签到模式，第一天3分，第二天5分，第三天8分，第7天15分，7天以上每天都是15分，连续签到每天的积分都会比前一天多，但其中只要有一天中断，又会从第1天算起。</li>
+</ol>
+
+<p>第一种实现很简单，只要处理好用户签到的时间问题就行，重点说说第二种。 第二种，1 ~7 天可获取的积分是可配置的，并没有什么递增规律，只要从配置文件中获取就行，但有几个问题需要解决：</p>
+
+<ol>
+<li>判断用户当天是第几天签到</li>
+<li>当天签到可获取的分数</li>
+<li>今天有没有签到过</li>
+</ol>
+
+<p>先说说传统中用mysql的解决办法：</p>
+
+<p>创建用户签到表 user_checkin</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">id, running_day(连续签到的天数), user_id,created_at（最后签到时间）
+</code></pre></div>
+<p>大概需要下面的流程</p>
+
+<p><img src="http://www.processon.com/chart_image/53d8a8d50cf223f173de706f.png" alt=""></p>
+
+<p>看看流程，本身不是很复杂，但判断好多，接下来说说使用 redis 的实现思路。redis 的 setex() 可以设置key 的过期时间，这样就不用判断有效期了。这样就不需要判上面那么多的判断，用户签到保存两个key：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">user:id_checking_day #记录用户连续签到的天数，key过期时间是当天时间到第二天零点
+user:id_checked # 记录用户当天是否签到，key过期时间：当天时间到今晚零点
+</code></pre></div>
+<p>流程大概如下:</p>
+
+<p><img src="http://www.processon.com/chart_image/53d8bb430cf223f173deea9c.png" alt=""></p>
+
+<p>总结：适当时候用redis，实现起来会很简单。</p>
+
+<p>注： 流程图用<a href="http://www.processon.com/">processon</a> 绘制</p>
 
 </div>
 <p>

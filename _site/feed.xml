@@ -7,6 +7,50 @@
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
                 
                         <item>
+                                <title>Redis 在签到功能中的运用</title>
+                                <description>&lt;p&gt;前段时间项目做了一个每日签到功能，现在有时间记下当时实现这个需求的思路和技术实现。
+这个功能总共做了两版，分别是从两种不同的业务需求实现：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;第一种：每日签到，获取固定积分；&lt;/li&gt;
+&lt;li&gt;第二种：类似《节奏大师》游戏那样的签到模式，第一天3分，第二天5分，第三天8分，第7天15分，7天以上每天都是15分，连续签到每天的积分都会比前一天多，但其中只要有一天中断，又会从第1天算起。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;第一种实现很简单，只要处理好用户签到的时间问题就行，重点说说第二种。 第二种，1 ~7 天可获取的积分是可配置的，并没有什么递增规律，只要从配置文件中获取就行，但有几个问题需要解决：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;判断用户当天是第几天签到&lt;/li&gt;
+&lt;li&gt;当天签到可获取的分数&lt;/li&gt;
+&lt;li&gt;今天有没有签到过&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;先说说传统中用mysql的解决办法：&lt;/p&gt;
+
+&lt;p&gt;创建用户签到表 user_checkin&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;id, running_day(连续签到的天数), user_id,created_at（最后签到时间）
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;大概需要下面的流程&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.processon.com/chart_image/53d8a8d50cf223f173de706f.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;看看流程，本身不是很复杂，但判断好多，接下来说说使用 redis 的实现思路。redis 的 setex() 可以设置key 的过期时间，这样就不用判断有效期了。这样就不需要判上面那么多的判断，用户签到保存两个key：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;user:id_checking_day #记录用户连续签到的天数，key过期时间是当天时间到第二天零点
+user:id_checked # 记录用户当天是否签到，key过期时间：当天时间到今晚零点
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;流程大概如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.processon.com/chart_image/53d8bb430cf223f173deea9c.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;总结：适当时候用redis，实现起来会很简单。&lt;/p&gt;
+
+&lt;p&gt;注： 流程图用&lt;a href=&quot;http://www.processon.com/&quot;&gt;processon&lt;/a&gt; 绘制&lt;/p&gt;
+</description>
+                                <pubDate>Wed, 30 Jul 2014 15:08:00 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/07/30/Redis%E5%9C%A8%E7%AD%BE%E5%88%B0%E5%8A%9F%E8%83%BD%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/07/30/Redis%E5%9C%A8%E7%AD%BE%E5%88%B0%E5%8A%9F%E8%83%BD%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>Redis 在短信验证码中的运用</title>
                                 <description>&lt;p&gt;很多时候都想不到用 &lt;a href=&quot;http://redis.io&quot;&gt;redis&lt;/a&gt;，这次项目中要做给用户发送手机验证码的功能。
 一般发送手机验证码也就是以下步骤：&lt;/p&gt;
@@ -667,54 +711,6 @@ rails s -e production
                                 <pubDate>Sat, 18 Jan 2014 21:45:24 +0000</pubDate>
                                 <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</link>
                                 <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>运用git 裸仓库做代码部署</title>
-                                <description>&lt;p&gt;capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
-假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：&lt;/p&gt;
-
-&lt;p&gt;1.首先在S 机上创建裸仓库：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /var/www/
-mkdir abc.git
-cd abc.git
-git init --bare
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;2.在本机L机上项目添加服务器的远程地址,确保用户可以远程通过ssh 协议登录&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /path/to/abc
-git remote add online ssh://login_name@192.168.1.100/var/www/abc.git//ssh port: 22
-git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git//ssh port: 58404
-git push online master //把本地master 分支的代码提交到 远程的分支上
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;3.服务机S上从当前机上 clone abc 项目&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;cd /var/www/html/
-git clone var/www/abc.git 
-在裸藏库hooks 添加 钩子让从本地L 提交后代码自动更新
-cd /var/www/abc.git/hooks/
-cp post-update.sample post-update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;4.编辑 post-update,添加钩子代码&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;#!/bin/sh
-#
-# An example hook script to prepare a packed repository for use over
-# dumb transports.
-#
-# To enable this hook, rename this file to &amp;quot;post-update&amp;quot;.
-
-cd /var/www/html/abc/ || exit
-unset GIT_DIR
-git pull
-
-echo &amp;#39;unicorn restart&amp;#39;
-# unicorn.abc restart
-
-exec git update-server-info
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;到此结束&gt;&lt;/p&gt;
-</description>
-                                <pubDate>Thu, 16 Jan 2014 11:03:24 +0000</pubDate>
-                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/01/16/%E8%BF%90-git-%E8%A3%B8%E4%BB%93%E5%BA%93%E5%81%9A%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2.html</guid>
                         </item>
                 
         </channel>
