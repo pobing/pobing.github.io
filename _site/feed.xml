@@ -7,6 +7,63 @@
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
                 
                         <item>
+                                <title>同步服务器时间</title>
+                                <description>&lt;p&gt;两台服务器分别是API 服务器和邮件服务器，两台服务器的通信认证是通过client_id 和 secret 和各自的时间戳来做签名进行认证，这样就得确保两台服务器的时间保持同步，那有什么办法能保持同步呢？&lt;/p&gt;
+
+&lt;p&gt;网上搜索了一下，发现linux 的 ntpdate, (set the date and time via NTP), NTP（Network Time Protocol）, 关于NTP 的更多资料请&lt;a href=&quot;http://baike.baidu.com/view/1872618.htm&quot;&gt;点此&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;ntpdate 使用方法很简单, 后面跟一个网络时间服务器,更多时间服务器需要自己去search：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt; ntpdate asia.pool.ntp.org #台警大授时中心(台湾)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;为了让时间定期同步，可以将上面命令放入 crontab 计划任务中，每天凌晨执行：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;0 23 * * * ntpdate asia.pool.ntp.org &amp;gt;&amp;gt; /var/log/ntpdate.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;参考：&lt;a href=&quot;http://www.2cto.com/os/201109/103909.html&quot;&gt;http://www.2cto.com/os/201109/103909.html&lt;/a&gt;&lt;/p&gt;
+</description>
+                                <pubDate>Thu, 28 Aug 2014 21:47:00 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/08/28/Ntpdate-server-time.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/08/28/Ntpdate-server-time.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>ruby 生成可逆验证码</title>
+                                <description>&lt;p&gt;项目中要用到邀请码，生成规则是 6为 随机字符（小写字母＋数字），但数据表中不想存这个字段，想根据用户ID 根据不同的算法生成，并且可以加解密。ruby 中可逆的加密算法很少，最后找资料在 stackoverflow 找到了下面的这个&lt;a href=&quot;http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails&quot;&gt;帖子&lt;/a&gt;：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;b36 = &amp;#39;4b3fc1400de0690bf2000001&amp;#39;.hex.to_s(36)
+=&amp;gt; &amp;quot;29a6dblglcujcoeboqp&amp;quot;
+&amp;#39;%024x&amp;#39; % b36.to_i(36)
+=&amp;gt; &amp;quot;4b3fc1400de0690bf2000001&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;于是参考写了下面的方法，根据用户的id，加salt （1000&lt;em&gt;000&lt;/em&gt;0）生成 invite_code&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# 加密
+def encrypt(value)
+  salt = 1000_000_0
+  encryptd_text = (value.to_i + salt).to_s
+  encryptd_text.hex.to_s(36)
+end
+
+# 解密
+def decrypt(value)
+  salt = 1000_000_0
+  decryptd_text = &amp;#39;%024x&amp;#39; % value.to_i(36)
+  decryptd_text.to_i - salt
+end
+
+#加密调用:
+user_id = 1
+invite_code = encrypt(user_id)
+=&amp;gt; &amp;quot;4fti4h&amp;quot;
+#解密调用:
+user_id = decrypt(invite_code)
+ =&amp;gt; &amp;quot;1&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;参考: &lt;a href=&quot;http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails&quot;&gt;http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails&lt;/a&gt;&lt;/p&gt;
+</description>
+                                <pubDate>Wed, 06 Aug 2014 15:08:00 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/08/06/Ruby-reversible%EF%BC%8Dcode.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/08/06/Ruby-reversible%EF%BC%8Dcode.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>Redis 在签到功能中的运用</title>
                                 <description>&lt;p&gt;前段时间项目做了一个每日签到功能，现在有时间记下当时实现这个需求的思路和技术实现。
 这个功能总共做了两版，分别是从两种不同的业务需求实现：&lt;/p&gt;
@@ -611,106 +668,6 @@ rails s -e production
                                 <pubDate>Sat, 15 Feb 2014 16:23:00 +0000</pubDate>
                                 <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/02/15/redmine-%E5%8D%87%E7%BA%A7.html</link>
                                 <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/02/15/redmine-%E5%8D%87%E7%BA%A7.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>《舌尖上的毒：酷农解密食品安全》的笔记2-人造鸡蛋</title>
-                                <description>&lt;p&gt;&lt;strong&gt;随着近年来一次次食品安全事件的曝光，以食为天的中国人，从来没有像今天这样害怕过“吃”！&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;人造鸡蛋，之前有同事说，他一次吃饭吃的鸡蛋咬不动。我庆幸的说没还没遇到过? 前几天在某科普网上一段资料说是，根本不存在所谓的人造鸡蛋，人工造一份鸡蛋成本很高。直到看到这本书，关于人造鸡蛋制造的描述。觉得黑心商家很恐怖,假鸡蛋全是化工原料做的。说明的确存在假鸡蛋，肯定有不良企业这么做。说到此，也许自己之前也许吃到过假鸡蛋，只是自己不注意或不认识罢了。
-以下是关于人造鸡蛋制造的部分描述,大家参考斟酌,只希望我们都能买到放心蛋,吃得健康：&lt;/p&gt;
-
-&lt;p&gt;从这份材料中，孙焕平看到，用来制作蛋黄和蛋清的原料有：海藻酸钠、氯化钙等；用来制作蛋壳的原料有：石蜡、石膏、氢粉等。&lt;/p&gt;
-
-&lt;p&gt;“鸡蛋清”和“鸡蛋黄”都是同一种物质，把凉好的“鸡蛋清”分成两份，其中3/4做“蛋清”，1/4做“蛋黄”。为了让“鸡蛋”更加逼真，可以在“蛋清”中放入少许食盐，因为真鸡蛋的蛋清有些咸；“蛋黄”中放入一些桔黄色素，再放入一些奶粉，这样“蛋黄”看起来就会有些黄中带白。
-“蛋清”和“蛋黄”做好了，下一步就是把“蛋黄”和“蛋清”做成“鸡蛋”了。&lt;/p&gt;
-
-&lt;p&gt;只见他开始把“蛋清”倒入椭圆形凹槽中，开始倒一半，然后用手在盆里小心地拿起一个做好的“蛋黄”放进去，又倒一半“蛋清”盖住“蛋黄”。用同样的手法在氯化钙溶液中摇晃，“蛋清”外侧很快就出现了凝固的薄膜，然后手腕娴熟地一抖，一个没有蛋壳的“鸡蛋”就“孵化”出来了。&lt;/p&gt;
-
-&lt;p&gt;马经理取了一些石蜡，加入了适当比例的硬质酸、氢粉等三四种物质之后，又放入了少许色素，他把这些东西放到小锅里加热。&lt;/p&gt;
-
-&lt;p&gt;“我们今天做的是红皮鸡蛋，要放入桔红色素。如果以后你做白皮鸡蛋，放点奶粉进去。如果做鸭蛋，还要放一些翠绿进去。这些色素都能在各地化学用品店买到。”
-说话间，他用筷子&lt;/p&gt;
-
-&lt;p&gt;马经理在桌上铺了一块湿布，上面放了一层干净的塑料薄膜，用铁勺在盆中捞起一个无壳蛋，完全浸入冷却好的石蜡溶液中。
-一上一下，一上一下……随着一进一出，“鸡蛋”慢慢地就裹上了一层壳，四五下之后，他轻轻取出“鸡蛋”，放到塑料薄膜上，一个裹了“蛋壳”的“鸡蛋”就成型了。&lt;/p&gt;
-
-&lt;p&gt;经过冷却风干24个小时之后，从外表上看，人造鸡蛋就和真鸡蛋一模一样了。&lt;/p&gt;
-
-&lt;p&gt;最后还可以在做好的鸡蛋外面稍微涂抹上一些鸡屎，就更没有人怀疑了。&lt;/p&gt;
-
-&lt;p&gt;你和养鸡场、饭店、小吃摊说好，这些需要大量鸡蛋的地方，让他们把假鸡蛋掺到真鸡蛋里，谁会发现呢？”&lt;/p&gt;
-
-&lt;p&gt;据其介绍，&lt;strong&gt;大规模加工人造鸡蛋的成本每个仅有5~8分钱，而混到真鸡蛋里能卖到4毛钱左右&lt;/strong&gt;，这样一本万利的买卖，谁不乐意做呢？&lt;/p&gt;
-
-&lt;p&gt;临走的时候，马经理塞给孙焕平一张名片，上面印着一些头衔，而背面则又是那句十分醒目的话：科学技术是第一生产力……&lt;/p&gt;
-
-&lt;p&gt;孙焕平说，他在暗访人造鸡蛋培训的过程中，看到的不仅仅是“人造鸡蛋”造假者手艺的娴熟，还看到了这些足以害人的廉价化工原料竟然唾手可得；不仅看到了造假者的明目张胆，还看到了造假培训生意的兴隆……&lt;/p&gt;
-
-&lt;p&gt;随着近年来一次次食品安全事件的曝光，以食为天的中国人，从来没有像今天这样害怕过“吃”！&lt;/p&gt;
-
-&lt;p&gt;未完...&lt;/p&gt;
-</description>
-                                <pubDate>Thu, 23 Jan 2014 21:51:24 +0000</pubDate>
-                                <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/23/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-2.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/23/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-2.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>《舌尖上的毒：酷农解密食品安全》的笔记-1</title>
-                                <description>&lt;p&gt;2014 年读的第一本书，还没读完，先摘抄书中部分精彩片段分享给大家。因为马上要过春节了，希望大家餐桌食品更安全。
-强烈推荐大家读这本书。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;激发我们对造成食品安全危机的多重因素进行思考。民以食为天，不安全食品的生产者也必会成为“舌尖上的毒”的受害者。希望本书能够起到增强大众的自我保护意识、唤醒企业的社会良心的作用。要让中国的饮食文化继续发扬光大，首先要还百姓一个安全健康的餐桌&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;1.毒豆芽&lt;/p&gt;
-
-&lt;p&gt;试想，我们现在到底在多大程度上相互吃着对方不敢吃的东西？可是，谁又知道呢？&lt;/p&gt;
-
-&lt;p&gt;2.变色的不止是豆芽&lt;/p&gt;
-
-&lt;p&gt;当我们被市场上颜色可人、白如冬雪的食品吸引时，不知道有没有想过这些食品为什么会这么白？
-&lt;strong&gt;所以消费者应该尽量挑选原色食品，切忌购买颜色太白的食品。&lt;/strong&gt;
-如果下午去买豆芽，豆芽的颜色还是很白的话，很可能被漂白过了。
-消费者在购买食品的时候，应该尽量选一些原色自然的食品，使非法漂白失去市场，让原色食品回到餐桌。&lt;/p&gt;
-
-&lt;p&gt;3.消费者的误区&lt;/p&gt;
-
-&lt;p&gt;实际上，黑心食品屡禁不止，除了黑心商贩利欲熏心外，消费者本身也有责任
-年轻人爱买加工好的包装食品，不少人逛市场也喜欢挑‘好看的’。”
-除此之外，孙焕平还认为，消费者的漠然也在一定程度上造成了对“黑心食品”的纵容。
-是的，作为消费者，我们要坚决抵制“黑心食品”，使“黑心食品”犹如过街老鼠，人人喊打。&lt;/p&gt;
-
-&lt;p&gt;4.欺骗妻子&lt;/p&gt;
-
-&lt;p&gt;德国诗人海涅说过，生命不可能从谎言中绽放出灿烂的鲜花。&lt;/p&gt;
-
-&lt;p&gt;5.“黑心”粉丝&lt;/p&gt;
-
-&lt;p&gt;他希望老百姓一定要擦亮眼睛，不要一味图好看而买那种白而鲜亮的粉丝。&lt;/p&gt;
-
-&lt;p&gt;6.有机食品也造假&lt;/p&gt;
-
-&lt;p&gt;每个行业都会有不守规矩的人
-虽然社会各界对有机产业的前景一致看好，但目前频频被揭发的“假有机”也让行业开始遭受挑战。&lt;/p&gt;
-
-&lt;p&gt;7.假血燕&lt;/p&gt;
-
-&lt;p&gt;如果一个社会有钱人吃的、用的东西劣质有害，一般人吃的、用的东西同样劣质有害，那么到底谁在受益？谁得到了真正的安全保障？谁分享到了社会进步，谁又在令其倒退？这些问题，恐怕不是只消除畸形的燕窝消费能够回答的。&lt;/p&gt;
-
-&lt;p&gt;8.制假笔记&lt;/p&gt;
-
-&lt;p&gt;劳动创造财富”本来是我们的至理名言，如今却成了制假犯的座右铭。看来，无耻其实也不是一件很艰难的事。&lt;/p&gt;
-
-&lt;p&gt;9.广场爆发&lt;/p&gt;
-
-&lt;p&gt;对人类而言，只要保持足够的“含水量”的软淀粉——知识、谦虚、正直、善良等必备的技能与品德，在生活中磨炼出达到“爆裂”所必需的硬淀粉的条件——忍耐、勇敢、明辨、毅力等一定的相持能力，人也能像一粒爆裂的玉米那样灿烂绽放，实现自己的人生理想。&lt;/p&gt;
-
-&lt;p&gt;未完...&lt;/p&gt;
-</description>
-                                <pubDate>Sat, 18 Jan 2014 21:45:24 +0000</pubDate>
-                                <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/01/18/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-1.html</guid>
                         </item>
                 
         </channel>
