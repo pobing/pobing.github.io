@@ -7,6 +7,54 @@
                 <atom:link href="http://pobing.info/feed.xml" rel="self" type="application/rss+xml" />
                 
                         <item>
+                                <title>Cron job in ruby -whenever</title>
+                                <description>&lt;p&gt;项目中用了好几个定时任务工具，都会发现问题，最后还是觉得 &lt;a href=&quot;https://github.com/javan/whenever&quot;&gt;whenever&lt;/a&gt; 好用。&lt;/p&gt;
+
+&lt;p&gt;项目中很方便使用，几行命令搞定：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;gem install whenever
+cd my/project
+wheneverize . #This will create an initial config/schedule.rb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;example  in my schedule.rb ：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;set :environment_variable, &amp;quot;RACK_ENV&amp;quot;
+set :environment, &amp;quot;production&amp;quot;
+set :output, &amp;quot;./tmp/logs/cron_log.log&amp;quot;
+
+env :PATH, ENV[&amp;#39;PATH&amp;#39;]
+
+# 不同环境区分
+case @environment
+when &amp;#39;production&amp;#39;
+  every 5.minute do
+    rake &amp;#39;paid_online&amp;#39;
+    rake &amp;#39;paid_offline&amp;#39;
+  end
+else
+  every 1.minute do
+    rake &amp;#39;paid_online&amp;#39;
+    rake &amp;#39;paid_offline&amp;#39;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;将计划任务写入 linux crontab，执行&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;whenever -w # 以全路径写入，默认为 生产环境,这种会覆盖原来的文件
+
+=&amp;gt;  */5 * * * * /bin/bash -l -c &amp;#39;cd /Users/jidongdong/Workspace/wendax-api &amp;amp;&amp;amp; RACK_ENV=production bundle exec rake paid_online --silent &amp;gt;&amp;gt; ./tmp/logs/cron_log.log 2&amp;gt;&amp;amp;1&amp;#39;
+
+＃如果想以追加的方式更新 crontab 配置文件，并且设置其他环境变量，只需加上 identifier －i 参数，－s 设置 variables
+
+whenever -i my_project-identifier -s &amp;#39;environment=test&amp;#39;
+
+=&amp;gt; */1 * * * * /bin/bash -l -c &amp;#39;cd /Users/jidongdong/Workspace/wendax-api &amp;amp;&amp;amp; RACK_ENV=test bundle exec rake paid_online --silent &amp;gt;&amp;gt; ./tmp/logs/cron_log.log 2&amp;gt;&amp;amp;1&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;更多 &lt;code&gt;whenever --help&lt;/code&gt;&lt;/p&gt;
+</description>
+                                <pubDate>Fri, 19 Sep 2014 22:51:00 +0000</pubDate>
+                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/09/19/Whenever-user-tip.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/09/19/Whenever-user-tip.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>同步服务器时间</title>
                                 <description>&lt;p&gt;两台服务器分别是API 服务器和邮件服务器，两台服务器的通信认证是通过client_id 和 secret 和各自的时间戳来做签名进行认证，这样就得确保两台服务器的时间保持同步，那有什么办法能保持同步呢？&lt;/p&gt;
 
@@ -598,76 +646,6 @@ scp something b@192.168.10.105:/home/b/
                                 <pubDate>Sat, 22 Feb 2014 20:16:24 +0000</pubDate>
                                 <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/02/22/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-3.html</link>
                                 <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/02/22/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E6%AF%92-3.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>记一次 redmine 升级</title>
-                                <description>&lt;p&gt;公司想迁移 redmine 服务器，并要对redmine 进行升级 ，旧版本是 1.x 的,ruby 是 1.8x 。 版本很老，升级得谨慎。查看了redmine 的官网 &lt;a href=&quot;http://www.redmine.org/&quot;&gt;http://www.redmine.org/&lt;/a&gt;, 最新版本已是 2.4x 的，参考了&lt;a href=&quot;http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade&quot;&gt;redmine 的升级指南&lt;/a&gt;, 这次升级需要注意以下几点：
-&lt;pre&gt;
-数据的备份：确保数据完整
-文件的备份：之前上传的附件全都备份
-版本的兼容：新版和旧版 redmine 有数据表的字段的不统一，确保其兼容&lt;br&gt;
-&lt;/pre&gt;&lt;/p&gt;
-
-&lt;p&gt;升级步骤： &lt;/p&gt;
-
-&lt;p&gt;说明： 下文用 A 代表旧服务器， B 代表新服务器，省略 B 机器安装 ruby 和 rails 环境的步骤&lt;/p&gt;
-
-&lt;p&gt;1.从 A 机器导出 redmine 旧数据（停掉当前redmine 服务，确保数据统一），并拷贝到 B 机器&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;mysqldump -u redmine -p redmine_default &amp;gt; redmine_bak.sql ＃ 导出数据
-scp -P 58212 redmine_bak.sql b@host:/Backup/ ＃ 拷贝到 B 机器
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;2.官网&lt;a href=&quot;http://www.redmine.org/projects/redmine/wiki/Download&quot;&gt;下载&lt;/a&gt;最新redmine 程序并解压 &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;wget http://www.redmine.org/releases/redmine-2.4.3.tar.gz
-tar zxf redmine-2.4.3.tar.gz
-mv redmine-2.4.3 redmine
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;3.从 A 机器 redmine 程序拷贝旧配置文件，附件，插件到新程序 config 目录下 &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;#拷贝配置文件
-scp －P 58212 a@host:/var/www/redmine/config/database.yml  config/  
-#If you&amp;#39;re running Redmine &amp;gt;= 1.4 with mysql and ruby1.9, change the database adapter to `mysql2`.
-scp －P 58212 a@host:/var/www/redmine/config/configuration.yml  config/
-scp －P 58212 a@host:/var/www/redmine/config/setting.yml  config/  # email config info
-
-#拷贝附件
-scp －P -r 58212 a@host:/var/www/redmine/files/  files/  
-
-#拷贝 plugins
-scp －P 58212 a@host:/var/www/redmine/vendor/plugins/  plugins/  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;4.生成 secret_token.rb&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;rake generate_secret_token 
-#This will generate a file (config/initializers/secret_token.rb) with a random secret used to secure session data.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;5.创建数据库，倒入旧数据，执行迁移，顺序不能乱，否则会出现字段不兼容现象&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;RAILS_ENV=production rake db:create ＃ mysql will create redmine db
-
-#导入旧数据
-mysql  -u username -p password --default_character_set utf8 redmine &amp;lt; Backup/redmine_bak.sql 
-
-#执行迁移
-RAILS_ENV=production rake db:migrate
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;6.安装 imagemagic&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;yum install ImageMagick-devel
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;7.Bundle、Start and Test&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;bundle install --without development test
-rails s -e production
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;参考：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade&quot;&gt;http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://dl528888.blog.51cto.com/2382721/1228105&quot;&gt;http://dl528888.blog.51cto.com/2382721/1228105&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.raymondchen.com/?p=543&quot;&gt;http://www.raymondchen.com/?p=543&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;[完]&lt;/p&gt;
-</description>
-                                <pubDate>Sat, 15 Feb 2014 16:23:00 +0000</pubDate>
-                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/02/15/redmine-%E5%8D%87%E7%BA%A7.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/02/15/redmine-%E5%8D%87%E7%BA%A7.html</guid>
                         </item>
                 
         </channel>
