@@ -304,6 +304,60 @@ whenever -i my_project-identifier -s &amp;#39;environment=test&amp;#39;
                         </item>
                 
                         <item>
+                                <title>《Remote: Office Not Required》Note (1)</title>
+                                <description>&lt;p&gt;本文相关片段摘自：简书 &lt;a href=&quot;http://www.jianshu.com/notebooks/41672/latest&quot;&gt;远程办公 Remote by 37Signals 中文版 &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;远程工作方式&lt;/h2&gt;
+
+&lt;p&gt;选择远程的工作方式，你和你的同事们就能经常更换工作环境。我们并不是指飞到另外一个全新的城市。&lt;strong&gt;我们指的是，你可以选择几天在家工作、几天在咖啡厅或图书馆工作。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;一成不变的生活会消磨你的创造力。每天在同一个时间点起床、乘坐同样的交通工具、走同一条路、在同一张办公桌前坐下，这样周而复始的环境和工作，很难产生灵感。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;然而不定期的更换工作环境，往往能给你带来很多新的想法。Mig，37Signals的一位设计师，就尝试过很多。Mig在芝加哥工作，但是每周只来几次办公室，而且大都在下午。上午的时间往往都花在了城市的各个咖啡馆中。不同的场景、不同的人群、不同的菜单，往往能够让他从各个角度看待熟悉的事物。他深信就是这种多样性给他的设计工作带来了很多帮助。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;所以，不要单纯的把远程工作理解为把办公室从公司搬到了家里。远程真正的意义是，能够有机会接触更多的事物，从更多的角度看待问题。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;工作的目的，不是为了将所有员工聚集到一个房间，在同一个时间段内压榨他们的劳动力。这样的话，员工们工作的并不快乐，工作的产出也很一般。让他们自由选择一个良好的工作环境，保持愉快的心情，好的结果也是顺理成章的事情。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;真正的享受，是你能够完全掌握自由和时间。如果有一天你能够体会到这一点，那么那些免费午餐、顶层咖啡什么的，都只是浮云...&lt;/p&gt;
+
+&lt;h2&gt;留住人才&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们花了非常多的精力，从全球找寻最优秀的人才，当然应该尽力留住他们。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这句话听上去理所应当，但是在很多公司，一旦发生总部迁移，公司就会放任很多明星开发人员离开。这种做法非常愚蠢。&lt;/p&gt;
+
+&lt;p&gt;在员工整个职业生涯期间，有非常多的原因会促使他们更换工作地点。例如：结婚（或离婚）、讨厌炎热或极寒的气候、希望离家人更近、甚至只是因为想换一个新的工作环境。以上这些原因都与工作本身没有关系。但是，如果雇佣他们的公司，本身的工作方式非常死板，一定要求员工都坐在办公室内上班，那么这些员工就不得不选择换一家公司。&lt;/p&gt;
+
+&lt;p&gt;研究表明，一家公司内部的老员工们，往往都非常适合远程办公。他们已经非常熟悉公司的同事、了解工作的整个流程、以及他们需要完成的事情。失去这些经验丰富的老员工，是非常大的损失。你很难找到另外一名替代者，能快速上手完成他们的工作。&lt;/p&gt;
+
+&lt;p&gt;在37Signals这么多年的商业操作过程中，我们习惯于让新的同事先在同一办公室内工作，然后找出那些特别优秀的员工，给予他们自由选择工作方式的权力。David先在芝加哥，然后选择去了玛贝拉（西班牙）。Jamis原先在犹他州，后来搬去爱达华州工作。Kristin也由总部搬迁去了波兰。而Jeremy，则在波兰、帕萨迪纳、圣地亚哥、菲尼克斯等地为37Signals工作过。&lt;/p&gt;
+
+&lt;p&gt;再以Jellyvision（多媒体内容制作）为例，公司初期的明星员工，内心都有走出去的冲动。这也使得Jellyvison慢慢走上了远程协作办公的道路。公司内的同事不愿离开Jellyvision，但是他们想要离开总部，去其它地方继续学习和工作。公司同样也不想失去这些员工。到现在为止，大部分Jellyvision远程工作的同事，初期都在总部工作过一段时间，然后等到一切技能和条件都准备好了，就离开总部去其他城市或国家，继续为Jellyvision工作。&lt;/p&gt;
+
+&lt;p&gt;美国联邦保险也遇到过几乎一样的情况。一位非常资深的员工，想要短暂离开公司总部一段时间。为的是能够陪伴他的丈夫完成大学最后的阶段，然后再继续回到总部。&lt;/p&gt;
+
+&lt;p&gt;长时间保持一个稳定的团队，对于提高工作效率和质量是非常关键的。同事之间的关系越紧密，工作的质量也会更高。相反的，新手总是难免犯一些常规的错误。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;请记住，和优秀的人一起完成伟大的工作，这是我们能够体会到的幸福感最持久的事情。如果找到，那么请留住那些优秀的人才。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2&gt;Source&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://jianshu.io/p/49017e2ef9d6&quot;&gt;Original Page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://37signals.com/remote/&quot;&gt;Remote Office not required&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                                <pubDate>Tue, 12 Aug 2014 09:31:00 +0000</pubDate>
+                                <link>http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/08/12/remote-note-1.html</link>
+                                <guid isPermaLink="true">http://pobing.info//%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/2014/08/12/remote-note-1.html</guid>
+                        </item>
+                
+                        <item>
                                 <title>ruby 生成可逆验证码</title>
                                 <description>&lt;p&gt;项目中要用到邀请码，生成规则是 6为 随机字符（小写字母＋数字），但数据表中不想存这个字段，想根据用户ID 根据不同的算法生成，并且可以加解密。ruby 中可逆的加密算法很少，最后找资料在 stackoverflow 找到了下面的这个&lt;a href=&quot;http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails&quot;&gt;帖子&lt;/a&gt;：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;b36&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;4b3fc1400de0690bf2000001&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -697,39 +751,6 @@ chsh -s /bin/zsh #zsh作为默认shell
                                 <pubDate>Sun, 30 Mar 2014 22:18:11 +0000</pubDate>
                                 <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/Linux-%E6%96%B0%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE.html</link>
                                 <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/Linux-%E6%96%B0%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE.html</guid>
-                        </item>
-                
-                        <item>
-                                <title>ssh 免密码登录远程机器</title>
-                                <description>&lt;p&gt;假设 A为本地主机(即用于控制其他主机的机器), B为远程主机(即被控制的机器Server), ip为192.168.10.105; 前提是两台机器都是Linux系统
-这里不做 ssh 的 id_rsa.pub 的生成&lt;/p&gt;
-
-&lt;p&gt;将本地 ~/.ssh/id_rsa.pub 拷贝到要登录的机器B机器，执行以下命令：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo scp /home/a/.ssh/id_rsa.pub b@192.168.10.105:/home/b/.ssh/a_id_rsa.pub
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;B机把从A机复制的id&lt;em&gt;rsa.pub添加到.ssh/authorzied&lt;/em&gt;keys文件里&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;touch /root/.ssh/authorized_keys (如果已经存在这个文件, 跳过这条)
-cat ~/.ssh/jdd_id_rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
-
-# 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 &amp;gt; ，否则会清空原有的内容，使其他人无法使用原有的密钥登录
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;修改 authorized_keys 文件权限：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;chmod 600 ~/.ssh/authorized_keys
-
-
- # 必须将~/.ssh/authorized_keys的权限改为600, 该文件用于保存ssh客户端生成的公钥，可以修改服务器的ssh服务端配置文件/etc/ssh/sshd_config来指定其他文件名
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;测试：A机器执行&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;ssh b@192.168.10.105
-scp something b@192.168.10.105:/home/b/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;以上都不需要输入密码能成功操作，说明配置OK！&lt;/p&gt;
-
-&lt;p&gt;参考：&lt;a href=&quot;http://my.oschina.net/aiguozhe/blog/33994&quot;&gt;http://my.oschina.net/aiguozhe/blog/33994&lt;/a&gt;&lt;/p&gt;
-</description>
-                                <pubDate>Sun, 30 Mar 2014 22:13:55 +0000</pubDate>
-                                <link>http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/ssh-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95.html</link>
-                                <guid isPermaLink="true">http://pobing.info//%E6%8A%80%E6%9C%AF/2014/03/30/ssh-%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95.html</guid>
                         </item>
                 
         </channel>
