@@ -58,39 +58,39 @@
 <p>redis 的 setex() 可以设置key 的过期时间，这样就不用判断有效期了。接下来简单说说以上4点的实现,基于ruby 语言：</p>
 
 <p>1.具体的发短信核心代码</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">#加入用户 id=1 的用户请求发端信息接口
-  # 获取用户1分钟内请求发短信的次数
-  min_hz = redis.get(&quot;1_code_min&quot;)
-  # 获取用户 1 小时内请求发短信的次数
-  hour_hz = redis.get_hour(&quot;1_code_hour&quot;)
-  # 说明1分钟重复请求
-  raise &quot;rate_limit_error&quot; if min_hz == 1
-  #说明超过1小时请求的次数
-  raise &quot;rate_limit_error&quot; if hour_hz &gt;= 3
-  #生成6位验证码
-  sms_code=(&#39;0&#39;..&#39;9&#39;).to_a.sample(6).join
-  #redis 存入用户生成的code，key 为 1_sms_code, 10分钟后过期
-  redis.setex(&quot;1_sms_code&quot;,60*10,sms_code)
-  # 1小时内第一次设置 key 1_code_min
-  redis.setex(&quot;1_code_hour&quot;, 60*60, 1) if min_hz == 0
-  #或者对1小时的次数加1
-  redis.incr(&quot;1_code_hour&quot;)
-  redis.setex(&quot;1_code_hour&quot;, 60*60, 1) if hour_hz == 0 &amp;&amp; hour_hz &lt; 3
-  #掉第三方服务发送验证码
-  res = send(phone,code)
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="c1">#加入用户 id=1 的用户请求发端信息接口</span>
+  <span class="c1"># 获取用户1分钟内请求发短信的次数</span>
+  <span class="n">min_hz</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;1_code_min&quot;</span><span class="p">)</span>
+  <span class="c1"># 获取用户 1 小时内请求发短信的次数</span>
+  <span class="n">hour_hz</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">get_hour</span><span class="p">(</span><span class="s2">&quot;1_code_hour&quot;</span><span class="p">)</span>
+  <span class="c1"># 说明1分钟重复请求</span>
+  <span class="k">raise</span> <span class="s2">&quot;rate_limit_error&quot;</span> <span class="k">if</span> <span class="n">min_hz</span> <span class="o">==</span> <span class="mi">1</span>
+  <span class="c1">#说明超过1小时请求的次数</span>
+  <span class="k">raise</span> <span class="s2">&quot;rate_limit_error&quot;</span> <span class="k">if</span> <span class="n">hour_hz</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+  <span class="c1">#生成6位验证码</span>
+  <span class="n">sms_code</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">.</span><span class="n">.</span><span class="s1">&#39;9&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">join</span>
+  <span class="c1">#redis 存入用户生成的code，key 为 1_sms_code, 10分钟后过期</span>
+  <span class="n">redis</span><span class="o">.</span><span class="n">setex</span><span class="p">(</span><span class="s2">&quot;1_sms_code&quot;</span><span class="p">,</span><span class="mi">60</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span><span class="n">sms_code</span><span class="p">)</span>
+  <span class="c1"># 1小时内第一次设置 key 1_code_min</span>
+  <span class="n">redis</span><span class="o">.</span><span class="n">setex</span><span class="p">(</span><span class="s2">&quot;1_code_hour&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">min_hz</span> <span class="o">==</span> <span class="mi">0</span>
+  <span class="c1">#或者对1小时的次数加1</span>
+  <span class="n">redis</span><span class="o">.</span><span class="n">incr</span><span class="p">(</span><span class="s2">&quot;1_code_hour&quot;</span><span class="p">)</span>
+  <span class="n">redis</span><span class="o">.</span><span class="n">setex</span><span class="p">(</span><span class="s2">&quot;1_code_hour&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">hour_hz</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">hour_hz</span> <span class="o">&lt;</span> <span class="mi">3</span>
+  <span class="c1">#掉第三方服务发送验证码</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="nb">send</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span><span class="n">code</span><span class="p">)</span>
 </code></pre></div>
 <p>2.整合推立方的发短信服务</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">require &#39;net/http&#39;
-#http://tui3.com/Members/doc/page/smssend/
-  apikey = &quot;tui3.apikey&quot;
-  format = &quot;tui3.format&quot;
-  productid = &quot;tui3.productid&quot;
-  address = &quot;tui3.address&quot;
-  content = &quot;验证码是:#{code}。您验证您的手机号码，请勿向任何人提供您收到的验证码。&quot;
-  path = &quot;/api/send/?k=#{apikey}&amp;r=#{format}&amp;p=#{productid}&amp;t=#{phone_num}&amp;c=#{content}&quot;
-  response = Net::HTTP.get(address,path)
-  res = JSON.parse(response)
-  res
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;net/http&#39;</span>
+<span class="c1">#http://tui3.com/Members/doc/page/smssend/</span>
+  <span class="n">apikey</span> <span class="o">=</span> <span class="s2">&quot;tui3.apikey&quot;</span>
+  <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;tui3.format&quot;</span>
+  <span class="n">productid</span> <span class="o">=</span> <span class="s2">&quot;tui3.productid&quot;</span>
+  <span class="n">address</span> <span class="o">=</span> <span class="s2">&quot;tui3.address&quot;</span>
+  <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;验证码是:</span><span class="si">#{</span><span class="n">code</span><span class="si">}</span><span class="s2">。您验证您的手机号码，请勿向任何人提供您收到的验证码。&quot;</span>
+  <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/api/send/?k=</span><span class="si">#{</span><span class="n">apikey</span><span class="si">}</span><span class="s2">&amp;r=</span><span class="si">#{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&amp;p=</span><span class="si">#{</span><span class="n">productid</span><span class="si">}</span><span class="s2">&amp;t=</span><span class="si">#{</span><span class="n">phone_num</span><span class="si">}</span><span class="s2">&amp;c=</span><span class="si">#{</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="n">path</span><span class="p">)</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="n">res</span>
 </code></pre></div>
 <p>总结：程序开发中，如果是临时的数据，如验证码，激活码什么的，就没必要存入数据库，可以考虑使用缓存机制 redis，memcached，都是不错的选择！</p>
 

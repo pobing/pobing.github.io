@@ -42,9 +42,9 @@
 <p>项目中用了好几个定时任务工具，都会发现问题，最后还是觉得 <a href="https://github.com/javan/whenever">whenever</a> 好用。</p>
 
 <p>项目中很方便使用，几行命令搞定：</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">gem install whenever
-cd my/project
-wheneverize . #This will create an initial config/schedule.rb
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="n">whenever</span>
+<span class="n">cd</span> <span class="n">my</span><span class="o">/</span><span class="n">project</span>
+<span class="n">wheneverize</span> <span class="o">.</span> <span class="c1">#This will create an initial config/schedule.rb</span>
 </code></pre></div>
 <p>example  in my schedule.rb ：</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">set :environment_variable, &quot;RACK_ENV&quot;

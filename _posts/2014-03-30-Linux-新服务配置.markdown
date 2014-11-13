@@ -10,14 +10,14 @@ linux 版本 ubuntu12.04 x86
 
 首次登录：
 
-```
+```bash
 ssh root@x.x.x.x
 
 ```
 
 修改root用户密码：
 
-```
+```bash
 
 passwd
 
@@ -25,7 +25,7 @@ passwd
 
 创建新用户组（admin组）：
 
-```
+```bash
 
 addgroup admin
 
@@ -33,7 +33,7 @@ addgroup admin
 
 添加新用户：
 
-```
+```bash
 useradd -d /home/bill -s /bin/bash -m bill
 
 ＃参数d指定用户的主目录，参数s指定用户的shell，参数m表示如果该目录不存在，则创建该目录
@@ -56,7 +56,7 @@ usermod -a -G admin bill
 ```
 为新用户设定权限
 
-```
+```bash
 visudo #visudo命令会打开sudo设置文件/etc/sudoers
 
 root    ALL=(ALL:ALL) ALL
@@ -76,7 +76,7 @@ Port 58404
 
 禁止root 用户登录
 
-```
+```bash
 
 Protocol 2
 
@@ -126,7 +126,7 @@ sudo /etc/init.d/ssh restart
 
 ruby install
 
-```
+```bash
 sudo apt-get install curl
 
 curl -L get.rvm.io | bash -s stablesource ~/.rvm/scripts/rvm
@@ -177,7 +177,7 @@ sudo apt-get install memcached
 ```
 * 启动服务
 
-```
+```bash
 memcached -d -m 50 -p 11011 -u memcache -l 127.0.0.1
 
 常用memcache启动参数介绍:
@@ -202,7 +202,7 @@ kill -9 memcache的进程ID
 
 Mysql create user and Grant Permissions
 
-```
+```mysql
 user mysql;
 create user 'rabel'@'localhost' identified by 'password';
 GRANT ALL PRIVILEGES ON db_name. * TO 'name'@'localhost';
@@ -213,7 +213,7 @@ FLUSH PRIVILEGES;
 
 其他辅助软件
 
-```
+```bash
 sudo apt-get install nodejs
 sudo apt-get install imagemagick
 

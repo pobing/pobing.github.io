@@ -40,33 +40,33 @@
 
 <div class="post">
 <p>项目中要用到邀请码，生成规则是 6为 随机字符（小写字母＋数字），但数据表中不想存这个字段，想根据用户ID 根据不同的算法生成，并且可以加解密。ruby 中可逆的加密算法很少，最后找资料在 stackoverflow 找到了下面的这个<a href="http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails">帖子</a>：</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">b36 = &#39;4b3fc1400de0690bf2000001&#39;.hex.to_s(36)
-=&gt; &quot;29a6dblglcujcoeboqp&quot;
-&#39;%024x&#39; % b36.to_i(36)
-=&gt; &quot;4b3fc1400de0690bf2000001&quot;
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="n">b36</span> <span class="o">=</span> <span class="s1">&#39;4b3fc1400de0690bf2000001&#39;</span><span class="o">.</span><span class="n">hex</span><span class="o">.</span><span class="n">to_s</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;29a6dblglcujcoeboqp&quot;</span>
+<span class="s1">&#39;%024x&#39;</span> <span class="o">%</span> <span class="n">b36</span><span class="o">.</span><span class="n">to_i</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;4b3fc1400de0690bf2000001&quot;</span>
 </code></pre></div>
 <p>于是参考写了下面的方法，根据用户的id，加salt （1000<em>000</em>0）生成 invite_code</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text"># 加密
-def encrypt(value)
-  salt = 1000_000_0
-  encryptd_text = (value.to_i + salt).to_s
-  encryptd_text.hex.to_s(36)
-end
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="c1"># 加密</span>
+<span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="n">salt</span> <span class="o">=</span> <span class="mi">1000_000_0</span>
+  <span class="n">encryptd_text</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">to_i</span> <span class="o">+</span> <span class="n">salt</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+  <span class="n">encryptd_text</span><span class="o">.</span><span class="n">hex</span><span class="o">.</span><span class="n">to_s</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span>
+<span class="k">end</span>
 
-# 解密
-def decrypt(value)
-  salt = 1000_000_0
-  decryptd_text = &#39;%024x&#39; % value.to_i(36)
-  decryptd_text.to_i - salt
-end
+<span class="c1"># 解密</span>
+<span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="n">salt</span> <span class="o">=</span> <span class="mi">1000_000_0</span>
+  <span class="n">decryptd_text</span> <span class="o">=</span> <span class="s1">&#39;%024x&#39;</span> <span class="o">%</span> <span class="n">value</span><span class="o">.</span><span class="n">to_i</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span>
+  <span class="n">decryptd_text</span><span class="o">.</span><span class="n">to_i</span> <span class="o">-</span> <span class="n">salt</span>
+<span class="k">end</span>
 
-#加密调用:
-user_id = 1
-invite_code = encrypt(user_id)
-=&gt; &quot;4fti4h&quot;
-#解密调用:
-user_id = decrypt(invite_code)
- =&gt; &quot;1&quot;
+<span class="c1">#加密调用:</span>
+<span class="n">user_id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">invite_code</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;4fti4h&quot;</span>
+<span class="c1">#解密调用:</span>
+<span class="n">user_id</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="n">invite_code</span><span class="p">)</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;1&quot;</span>
 </code></pre></div>
 <p>参考: <a href="http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails">http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails</a></p>
 

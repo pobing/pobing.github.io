@@ -10,7 +10,7 @@ categories: 技术
 
 项目中很方便使用，几行命令搞定：
 
-```
+```ruby
 gem install whenever
 cd my/project
 wheneverize . #This will create an initial config/schedule.rb
