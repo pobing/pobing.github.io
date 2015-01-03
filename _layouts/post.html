@@ -8,6 +8,13 @@ comments: true
 {% if page.tags.size > 0 %}
 
 <small>Tags: {% for tag in page.tags %} <a href="/tags/{{ tag }}" title="View posts tagged with &quot;{{ tag }}&quot;"><u>{{ tag }}</u></a>  {% if forloop.last != true %} {% endif %} {% endfor %} </small>{% endif %} -->
+
+ <span class="tags">
+    {% for tag in page.tags %}
+    <a href="/tags.html#{{ tag }}" title="{{ tag }}">#{{ tag }}</a>
+    {% endfor %}
+  </span>
+
 </p>
 
 <div class="post">
