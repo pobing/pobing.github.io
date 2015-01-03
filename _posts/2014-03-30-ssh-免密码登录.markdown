@@ -4,6 +4,8 @@ title:  "ssh 免密码登录远程机器"
 date:   2014-03-30 22:13:55
 
 categories: 技术
+tags:
+    - ssh
 ---
 
 

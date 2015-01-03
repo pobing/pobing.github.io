@@ -3,6 +3,8 @@ layout: post
 title:  "2013这一年"
 date:   2014-01-01 12:14:35
 categories: my posts
+tags:
+    - 年终总结
 ---
 
 * 1月

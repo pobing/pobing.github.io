@@ -4,6 +4,9 @@ title:  "《Remote: Office Not Required》Note (1)"
 date:   2014-08-12 09:31:00
 
 categories: 读书笔记
+tags:
+  - 远程办公
+  - 37Signals
 ---
 
 本文相关片段摘自：简书 [远程办公 Remote by 37Signals 中文版 ](http://www.jianshu.com/notebooks/41672/latest)

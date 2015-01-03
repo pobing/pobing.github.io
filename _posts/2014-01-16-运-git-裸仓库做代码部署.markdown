@@ -3,6 +3,9 @@ layout: post
 title:  "运用git 裸仓库做代码部署"
 date:   2014-01-16 11:03:24
 categories: 技术
+tags:
+    - git
+    - deploy 
 ---
 capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
 假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：

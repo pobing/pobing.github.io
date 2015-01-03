@@ -4,6 +4,9 @@ title:  "Redis 在短信验证码中的运用"
 date:   2014-04-20 10:06:00
 
 categories: 技术
+tags:
+  - Redis
+  - Nosql
 ---
 很多时候都想不到用 [redis](http://redis.io)，这次项目中要做给用户发送手机验证码的功能。
 一般发送手机验证码也就是以下步骤：

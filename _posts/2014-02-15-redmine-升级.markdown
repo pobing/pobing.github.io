@@ -3,6 +3,8 @@ layout: post
 title:  "记一次 redmine 升级"
 date:   2014-02-15 16:23:00
 categories: 技术
+tags:
+    - Redmine
 ---
 
 公司想迁移 redmine 服务器，并要对redmine 进行升级 ，旧版本是 1.x 的,ruby 是 1.8x 。 版本很老，升级得谨慎。查看了redmine 的官网 [http://www.redmine.org/](http://www.redmine.org/), 最新版本已是 2.4x 的，参考了[redmine 的升级指南](http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade), 这次升级需要注意以下几点：

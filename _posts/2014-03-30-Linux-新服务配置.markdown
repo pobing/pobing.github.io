@@ -4,6 +4,9 @@ title:  "Linux 新服务配置"
 date:   2014-03-30 22:18:11
 
 categories: 技术
+tags:
+    - Linux
+    - Ubuntu
 ---
 
 linux 版本 ubuntu12.04 x86

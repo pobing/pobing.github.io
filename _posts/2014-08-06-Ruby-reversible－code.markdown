@@ -4,6 +4,9 @@ title:  "ruby 生成可逆验证码"
 date:   2014-08-06 15:08:00
 
 categories: 技术
+tags:
+  - 加密算法
+  - Ruby
 ---
 
 项目中要用到邀请码，生成规则是 6为 随机字符（小写字母＋数字），但数据表中不想存这个字段，想根据用户ID 根据不同的算法生成，并且可以加解密。ruby 中可逆的加密算法很少，最后找资料在 stackoverflow 找到了下面的这个[帖子](http://stackoverflow.com/questions/1993147/compressing-a-hex-string-in-ruby-rails)：
