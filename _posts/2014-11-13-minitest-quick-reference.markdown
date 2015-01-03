@@ -4,6 +4,9 @@ title:  "Minitest Quick Reference"
 date:   2014-11-13 16:08:00
 
 categories: 技术
+tags:
+    - Ruby
+    - minitest
 ---
 
 source by: [http://www.mattsears.com/articles/2011/12/10/minitest-quick-reference](http://www.mattsears.com/articles/2011/12/10/minitest-quick-reference)

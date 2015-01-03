@@ -4,6 +4,10 @@ title:  "Cron job in ruby -whenever"
 date:   2014-09-19 22:51:00
 
 categories: 技术
+tags:
+    - Ruby
+    - whenever
+    - cron
 ---
 
 项目中用了好几个定时任务工具，都会发现问题，最后还是觉得 [whenever](https://github.com/javan/whenever) 好用。
