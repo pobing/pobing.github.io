@@ -1,0 +1,71 @@
+---
+layout: post
+title:  "Redis 在短信验证码中的运用"
+date:   2014-04-20 10:06:00
+
+categories: 技术
+---
+很多时候都想不到用 [redis](http://redis.io)，这次项目中要做给用户发送手机验证码的功能。
+一般发送手机验证码也就是以下步骤：
+
+```
+1.用户获取手机验证码
+2.服务器生成验证码（一般是 4-6 位数字），调用第三方发短信接口
+3.用户收到验证码的短信后，输入验证码提交
+4.服务器验证验证码合法性
+```
+下面详细说说以上步骤注意事项：
+
+```
+步骤1：发短信是调用第三方接口，是要花钱的。用户请求一次发短信接口，1 毛钱就出去了。所以不能让用户一直请求，要对步骤 1 进行请求限制。限制条件假如是： 1次/分钟, 3次/小时
+步骤2：服务器生成的验证码要和当前用户关联
+步骤3：因为发短信会有时间的延迟，用户好久收不到短信怎么办，多长时间可以重新请求发短信
+步骤4：验证码多长时间有效，假如10分钟内有效
+```
+
+先说传统的解决办法，假如数据库是 Mysql 要实现上述的需求可以实现，因为要对用户的请求次数进行计数，还要判断验证码的有效期，难点就在此，想想就麻烦。
+而且验证码是临时性的，其实不需要存储的。所以这时候就是 redis 发挥特长的时候了。
+
+redis 的 setex() 可以设置key 的过期时间，这样就不用判断有效期了。接下来简单说说以上4点的实现,基于ruby 语言：
+
+1.具体的发短信核心代码
+
+```ruby
+#加入用户 id=1 的用户请求发端信息接口
+  # 获取用户1分钟内请求发短信的次数
+  min_hz = redis.get("1_code_min")
+  # 获取用户 1 小时内请求发短信的次数
+  hour_hz = redis.get_hour("1_code_hour")
+  # 说明1分钟重复请求
+  raise "rate_limit_error" if min_hz == 1
+  #说明超过1小时请求的次数
+  raise "rate_limit_error" if hour_hz >= 3
+  #生成6位验证码
+  sms_code=('0'..'9').to_a.sample(6).join
+  #redis 存入用户生成的code，key 为 1_sms_code, 10分钟后过期
+  redis.setex("1_sms_code",60*10,sms_code)
+  # 1小时内第一次设置 key 1_code_min
+  redis.setex("1_code_hour", 60*60, 1) if min_hz == 0
+  #或者对1小时的次数加1
+  redis.incr("1_code_hour")
+  redis.setex("1_code_hour", 60*60, 1) if hour_hz == 0 && hour_hz < 3
+  #掉第三方服务发送验证码
+  res = send(phone,code)
+```
+
+2.整合推立方的发短信服务
+
+```ruby
+require 'net/http'
+#http://tui3.com/Members/doc/page/smssend/
+  apikey = "tui3.apikey"
+  format = "tui3.format"
+  productid = "tui3.productid"
+  address = "tui3.address"
+  content = "验证码是:#{code}。您验证您的手机号码，请勿向任何人提供您收到的验证码。"
+  path = "/api/send/?k=#{apikey}&r=#{format}&p=#{productid}&t=#{phone_num}&c=#{content}"
+  response = Net::HTTP.get(address,path)
+  res = JSON.parse(response)
+  res
+```
+总结：程序开发中，如果是临时的数据，如验证码，激活码什么的，就没必要存入数据库，可以考虑使用缓存机制 redis，memcached，都是不错的选择！
