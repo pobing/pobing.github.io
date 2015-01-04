@@ -2,7 +2,7 @@
 layout: post
 title:  "Nice weblog"
 date:   2015-01-03 22:23:00
-
+guid: urn:uuid:cc542be8-c2f0-42b7-aa95-8fee9a48773e
 categories: my post
 tags:
     - jekyll theme

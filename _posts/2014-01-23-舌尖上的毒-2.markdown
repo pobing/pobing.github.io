@@ -2,6 +2,7 @@
 layout: post
 title:  "《舌尖上的毒：酷农解密食品安全》的笔记2-人造鸡蛋"
 date:   2014-01-23 21:51:24
+guid: urn:uuid:ce8b711a-6148-4edc-9d36-5b6af87b74dd
 categories: 读书笔记
 tags:
     - 社会问题

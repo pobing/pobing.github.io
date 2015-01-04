@@ -2,7 +2,7 @@
 layout: post
 title:  "ssh 免密码登录远程机器"
 date:   2014-03-30 22:13:55
-
+guid: urn:uuid:cadc3ba7-5840-4b68-8916-9605e89c65f6
 categories: 技术
 tags:
     - ssh

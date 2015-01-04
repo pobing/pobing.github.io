@@ -2,7 +2,7 @@
 layout: post
 title:  "同步服务器时间"
 date:   2014-08-28 21:47:00
-
+guid: urn:uuid:b5bc7080-70f6-443a-a238-7419efc1d911
 categories: 技术
 tags:
   - Linux

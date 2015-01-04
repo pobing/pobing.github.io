@@ -43,7 +43,7 @@ comments: true
   <div class="divider">
     <span>
     {% if page.previous %}
-    <a href="{{ page.previous.url }}"><i class="fa fa-chevron-left"></i></a>
+    <a href="{{ page.previous.url }}" title="previous"><i class="fa fa-chevron-left"></i></a>
     {% else %}
     <i class="fa fa-circle"></i>
     {% endif %}
@@ -55,7 +55,7 @@ comments: true
 
     <span>
     {% if page.next %}
-    <a href="{{ page.next.url }}"><i class="fa fa-chevron-right"></i></a>
+    <a href="{{ page.next.url }}" title="next"><i class="fa fa-chevron-right"></i></a>
     {% else %}
     <i class="fa fa-circle"></i>
     {% endif %}
@@ -95,6 +95,21 @@ comments: true
 <p>
 <a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=0bd5d0c2-23dc-45e3-9d1d-1ebffb059419&style=2&textcolor=#000000&bgcolor=none&bp=qqmb,sinaminiblog,qzone,weixin,facebook,twitter&text=分享"></script>
 </p>
+<!-- <hr/> -->
+<div id="related">
+  <h2>Related Posts</h2>
+  <hr class="related_hr"/>
+  <ul class="posts">
+    {% for post in site.related_posts limit:3 %}
+    <li>
+          <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>  &raquo;
+      <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+      </li><!-- 
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li> -->
+    {% endfor %}
+  </ul>
+  <!-- <hr class="related_hr"/> -->
+</div>
 <!-- disqus comments -->
 <!-- <div id="disqus_thread"></div>
 <script type="text/javascript">

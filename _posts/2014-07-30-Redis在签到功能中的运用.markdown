@@ -2,7 +2,7 @@
 layout: post
 title:  "Redis 在签到功能中的运用"
 date:   2014-07-30 15:08:00
-
+guid: urn:uuid:77d94a1a-891a-42d0-a033-6514057590e8
 categories: 技术
 tags:
   - Redis

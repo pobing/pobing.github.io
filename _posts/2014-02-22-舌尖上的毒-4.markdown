@@ -2,7 +2,7 @@
 layout: post
 title:  "《舌尖上的毒：酷农解密食品安全》的笔记3-食品添加剂和酱缸文化"
 date:   2014-02-22 20:37:24
-
+guid: urn:uuid:cd5922b0-d4d0-400a-a293-c447f9449298
 categories: 读书笔记
 tags:
     - 社会问题

@@ -2,7 +2,7 @@
 layout: post
 title:  "8个月5次搬家的心路历程（一）"
 date:   2014-04-01 22:00:00
-
+guid: urn:uuid:27ec8a00-2017-4d79-801e-5ffcdf1dac40
 categories: 文章
 tags:
   - 北漂

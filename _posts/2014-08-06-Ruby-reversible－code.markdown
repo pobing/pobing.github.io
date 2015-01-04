@@ -2,7 +2,7 @@
 layout: post
 title:  "ruby 生成可逆验证码"
 date:   2014-08-06 15:08:00
-
+guid: urn:uuid:d401f6d7-e136-458b-90b4-b45f9d0786bb
 categories: 技术
 tags:
   - 加密算法

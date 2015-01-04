@@ -2,7 +2,7 @@
 layout: post
 title:  "Minitest Quick Reference"
 date:   2014-11-13 16:08:00
-
+guid: urn:uuid:0ddc3388-5bb4-4abf-a22b-016731159206
 categories: 技术
 tags:
     - Ruby

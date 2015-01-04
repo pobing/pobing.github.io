@@ -2,7 +2,7 @@
 layout: post
 title:  "《Remote: Office Not Required》Note (1)"
 date:   2014-08-12 09:31:00
-
+guid: urn:uuid:0d01f043-2249-47ca-a3db-9c36e9dadef9
 categories: 读书笔记
 tags:
   - 远程办公

@@ -1,6 +1,7 @@
 name: Pobing's Blog
 markdown: redcarpet
 pygments: true
+permalink: /:year/:month/:day/:title.html
 url: http://pobing.info
 description: Pobing's life Share all.
 

@@ -8,12 +8,14 @@
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
-        <link rel="stylesheet" href="/css/style.css">
 
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src="/javascript/retina.min.js"></script>
+        <link rel="stylesheet" href="/css/github.min.css">
+        
+        <script src="/javascript/highlight.min.js"></script>
+        <script type="text/javascript"> hljs.initHighlightingOnLoad(); </script>
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/css/main.css">
@@ -32,11 +34,11 @@
             <a class="extra" href="/">Home</a>
             <a class="extra" href="/archive.html">Archive</a>
             <a class="extra" href="/tags.html">Tags</a>
+            <a class="extra" href="/about.html">About</a>
             <a class="extra" href="/page/read.html">Read</a>
             <a class="extra" href="/feed.xml">Rss</a>
 
            <gcse:search></gcse:search>
-
 
           </div>
 
@@ -44,9 +46,8 @@
 
           <div class="footer">
               <p>
-                <a href="https://github.com/pobing">Github</a>
-                <a href="https://github.com/pobing">Twitter</a>
-                <a href="mailto:cn.jdong@gmail.com">Contact</a>
+                 {% assign first_post = site.posts | last %}
+               &copy; {{ first_post.date | date: "%Y" }} ~ {{ site.time | date: "%Y" }} {{ site.author }} | powered by jekyll | themed by <a href="http://lhzhang.com" title="sext vi">sext vi</a> 
               </p>
           </div>
         </div>

@@ -2,6 +2,7 @@
 layout: post
 title:  "《舌尖上的毒：酷农解密食品安全》的笔记3-奶茶，既没奶，也没茶"
 date:   2014-02-22 20:16:24
+guid: urn:uuid:660d692d-5a84-4b5f-ac8b-25cb00fe8a4d
 categories: 读书笔记
 tags:
     - 社会问题

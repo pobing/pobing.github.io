@@ -2,7 +2,7 @@
 layout: post
 title:  "Linux 新服务配置"
 date:   2014-03-30 22:18:11
-
+guid: urn:uuid:c2bfe42d-f05b-4e2b-955f-1e3735061ec0
 categories: 技术
 tags:
     - Linux

@@ -2,7 +2,7 @@
 layout: post
 title:  "一次项目上线的心得"
 date:   2014-06-08 21:08:00
-
+guid: urn:uuid:25e6fc9e-092e-41bf-884e-1b4f3c79caf5
 categories: 技术
 tags:
   - 运维

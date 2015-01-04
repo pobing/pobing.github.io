@@ -2,7 +2,7 @@
 layout: post
 title:  "Cron job in ruby -whenever"
 date:   2014-09-19 22:51:00
-
+guid: urn:uuid:f2bbf4fe-b997-47ec-b453-3befaf0bf51f
 categories: 技术
 tags:
     - Ruby

@@ -2,6 +2,7 @@
 layout: post
 title:  "运用git 裸仓库做代码部署"
 date:   2014-01-16 11:03:24
+guid: urn:uuid:1ae95c25-97bd-4255-a854-6e73ab9f1ea6
 categories: 技术
 tags:
     - git

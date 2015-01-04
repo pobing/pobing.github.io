@@ -2,7 +2,7 @@
 layout: post
 title:  "Redis 在短信验证码中的运用"
 date:   2014-04-20 10:06:00
-
+guid: urn:uuid:654b52c8-8a10-4b82-b063-a21a819a23a7
 categories: 技术
 tags:
   - Redis

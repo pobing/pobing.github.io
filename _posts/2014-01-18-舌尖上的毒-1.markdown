@@ -2,6 +2,7 @@
 layout: post
 title:  "《舌尖上的毒：酷农解密食品安全》的笔记-1"
 date:   2014-01-18 21:45:24
+guid: urn:uuid:0c8c5f33-0f29-4a46-9353-5a078c987384
 categories: 读书笔记
 tags:
     - 社会问题

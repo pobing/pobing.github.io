@@ -2,6 +2,7 @@
 layout: post
 title:  "记一次 redmine 升级"
 date:   2014-02-15 16:23:00
+guid: urn:uuid:fc5af3aa-8ede-43ff-87ac-0f6e4355259b
 categories: 技术
 tags:
     - Redmine
