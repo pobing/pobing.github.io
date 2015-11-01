@@ -30,14 +30,14 @@ passwd
 
 ```bash
 
-addgroup admin
+addgroup git
 
 ```
 
 添加新用户：
 
 ```bash
-useradd -d /home/bill -s /bin/bash -m bill
+useradd -d /home/git -s /bin/bash -m -g git git
 
 ＃参数d指定用户的主目录，参数s指定用户的shell，参数m表示如果该目录不存在，则创建该目录
 
@@ -47,10 +47,10 @@ useradd -d /home/bill -s /bin/bash -m bill
 
 ```
 
-passwd bill
+passwd git
 
 ```
-将新用户（bill）添加到用户组（admin）
+将新用户（git）添加到用户组（git）
 
 ```
 
@@ -63,7 +63,7 @@ usermod -a -G admin bill
 visudo #visudo命令会打开sudo设置文件/etc/sudoers
 
 root    ALL=(ALL:ALL) ALL
-bill    ALL=(ALL:ALL) ALL  #为bill 用户设定 sudo 权限
+git    ALL=(ALL:ALL) ALL  #为git 用户设定 sudo 权限
 
 ```
 修改默认服务器 ssh 端口，1025 － 65536 之间的任意整数,我们设置端口 58404
@@ -102,7 +102,7 @@ sudo  passwd -l root # 禁用 root 账号
 指定允许登录的用户：
 
 ```
-AllowUsers bill
+AllowUsers git
 
 ```
 
@@ -130,6 +130,7 @@ sudo /etc/init.d/ssh restart
 ruby install
 
 ```bash
+sudo apt-get update
 sudo apt-get install curl
 
 curl -L get.rvm.io | bash -s stablesource ~/.rvm/scripts/rvm
@@ -229,7 +230,7 @@ ssh 别名登录
 
 Host s1
 HostName 128.199.209.242
-User bill
+User git
 Port 25000
 
 ssh s1 # 新开shell,测试是否可以登录
