@@ -6,7 +6,7 @@ guid: urn:uuid:1ae95c25-97bd-4255-a854-6e73ab9f1ea6
 categories: 技术
 tags:
     - git
-    - deploy 
+    - deploy
 ---
 capistrano 部署rails 项目堪称完美，但今天我想介绍的是用git 裸仓库实现部署，同样方便。原理就是用到了git 的裸仓库。
 假如本地 L 机上有项目 abc，服务器 S机 IP 为 192.168.1.100，实现步骤如下：
@@ -23,15 +23,15 @@ git init --bare
 
 ```
 cd /path/to/abc
-git remote add online ssh://login_name@192.168.1.100/var/www/abc.git//ssh port: 22
-git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git//ssh port: 58404
+git remote add online ssh://login_name@192.168.1.100/var/www/abc.git
+git remote add online ssh://login_name@192.168.1.100:58404/var/www/abc.git
 git push online master //把本地master 分支的代码提交到 远程的分支上
 ```
 3.服务机S上从当前机上 clone abc 项目
 
 ```
 cd /var/www/html/
-git clone var/www/abc.git 
+git clone var/www/abc.git
 在裸藏库hooks 添加 钩子让从本地L 提交后代码自动更新
 cd /var/www/abc.git/hooks/
 cp post-update.sample post-update
