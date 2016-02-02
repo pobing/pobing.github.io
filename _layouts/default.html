@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/css/style.css">
         <script type="text/javascript" src="/javascript/retina.min.js"></script>
         <link rel="stylesheet" href="/css/github.min.css">
-        
+
         <script src="/javascript/highlight.min.js"></script>
         <script type="text/javascript"> hljs.initHighlightingOnLoad(); </script>
 
@@ -33,10 +33,10 @@
           <div class="header">
             <h1 class="title"><a href="/">{{ site.name }}</a></h1>
             <a class="extra" href="/">Home</a>
-            <a class="extra" href="/archive.html">Archive</a>
+            <!-- <a class="extra" href="/archive.html">Archive</a> -->
             <a class="extra" href="/tags.html">Tags</a>
             <a class="extra" href="/about.html">About</a>
-            <a class="extra" href="/page/read.html">Read</a>
+            <!-- <a class="extra" href="/page/read.html">Read</a> -->
             <a class="extra" href="/feed.xml">Rss</a>
 
            <gcse:search></gcse:search>
@@ -48,7 +48,7 @@
           <div class="footer">
               <p>
                  {% assign first_post = site.posts | last %}
-               &copy; {{ first_post.date | date: "%Y" }} ~ {{ site.time | date: "%Y" }} {{ site.author }} | powered by jekyll | themed by <a href="http://lhzhang.com" title="sext vi" target="_blank">sext vi</a> 
+               &copy; {{ first_post.date | date: "%Y" }} ~ {{ site.time | date: "%Y" }} {{ site.author }} | powered by jekyll | themed by <a href="http://lhzhang.com" title="sext vi" target="_blank">sext vi</a>
               </p>
           </div>
         </div>

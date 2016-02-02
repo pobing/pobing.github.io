@@ -17,10 +17,7 @@ mail
 
 or follow
 
-> [@cn_dong](https://twitter.com/#!/cn_dong)
+> [@cn_dong](https://twitter.com/cn_dong)
 
 to reach me
 
-resume
-
-> [cn-resume](https://github.com/pobing/pobing-resume/blob/master/cn_resume.md)
