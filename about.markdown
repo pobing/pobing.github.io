@@ -5,7 +5,7 @@ layout: default
 
 a
 
-> 80's body, Coder, Rubyist, from Shannxi, now in Beijing
+> 80's body, Coder, Rubyist, from Shannxi, now in Xian
 
 who involved in
 
@@ -15,9 +15,12 @@ mail
 
 > <mailto:cn.jdong@gmail.com>
 
+resume
+
+> [my resume](https://github.com/pobing/pobing-resume/blob/master/cn_resume.md)
+
 or follow
 
 > [@cn_dong](https://twitter.com/cn_dong)
 
 to reach me
-

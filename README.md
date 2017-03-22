@@ -3,7 +3,7 @@
 
 ```
 bundle install
-bundle exec jekyll server -w
+bundle exec jekyll server -w -H 0.0.0.0 -P 3000
 ```
 
 ### create new post
