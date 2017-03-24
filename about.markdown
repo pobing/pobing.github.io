@@ -17,7 +17,7 @@ mail
 
 resume
 
-> [my resume](https://github.com/pobing/pobing-resume/blob/master/cn_resume.md)
+> [my resume](https://github.com/pobing/pobing-resume/blob/master/readme.md)
 
 or follow
 
